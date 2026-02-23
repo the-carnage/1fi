@@ -15,9 +15,13 @@ mongoose.connect(MONGODB_URI)
   .then(() => console.log('connected to mongodb'))
   .catch(err => console.error('mongodb connection error:', err));
 
+const productRoutes = require('./routes/products');
+
 app.get('/', (req, res) => {
   res.json({ message: 'welcome to 1fi api' });
 });
+
+app.use('/api/products', productRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
