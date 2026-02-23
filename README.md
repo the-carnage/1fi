@@ -35,9 +35,11 @@ npm install
 Create a `.env` file in the backend directory:
 
 ```
-PORT=5000
+PORT=5001
 MONGODB_URI=mongodb://localhost:27017/onefi
 ```
+
+**Note:** Port 5001 is used instead of 5000 because macOS uses port 5000 for AirPlay Receiver/Control Center.
 
 ### Database Schema
 
@@ -81,7 +83,7 @@ npm run seed
 npm run dev
 ```
 
-Server will run on `http://localhost:5000`
+Server will run on `http://localhost:5001`
 
 ## API Endpoints
 
@@ -168,7 +170,7 @@ npm install
 Create a `.env` file in the frontend directory:
 
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 ```
 
 ### Run Frontend Development Server
@@ -272,12 +274,12 @@ Test the backend APIs using curl or your browser:
 
 ```bash
 # Get all products
-curl http://localhost:5000/api/products
+curl http://localhost:5001/api/products
 
 # Get specific product
-curl http://localhost:5000/api/products/iphone-17-pro
-curl http://localhost:5000/api/products/samsung-s24-ultra
-curl http://localhost:5000/api/products/oneplus-13
+curl http://localhost:5001/api/products/iphone-17-pro
+curl http://localhost:5001/api/products/samsung-s24-ultra
+curl http://localhost:5001/api/products/oneplus-13
 ```
 
 ### Frontend Testing
