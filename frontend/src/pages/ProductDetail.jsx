@@ -11,6 +11,7 @@ import {
   Divider,
 } from '@mui/material';
 import VariantSelector from '../components/VariantSelector';
+import StorageSelector from '../components/StorageSelector';
 import EmiPlanCard from '../components/EmiPlanCard';
 import { getProductBySlug } from '../api';
 
@@ -136,11 +137,11 @@ const ProductDetail = () => {
             onSelect={handleVariantChange}
           />
 
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
-              Storage: {selectedVariant.storage}
-            </Typography>
-          </Box>
+          <StorageSelector
+            variants={product.variants}
+            selectedVariant={selectedVariant}
+            onSelect={handleVariantChange}
+          />
 
           <Divider sx={{ my: 3 }} />
 
