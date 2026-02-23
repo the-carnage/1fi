@@ -73,17 +73,17 @@ const ProductDetail = () => {
       <Grid container spacing={4}>
         {/* Left Side - Product Images */}
         <Grid item xs={12} md={6}>
-          <Box sx={{ position: 'sticky', top: 80 }}>
+          <Box sx={{ position: { md: 'sticky' }, top: 80 }}>
             <Box
               sx={{
                 bgcolor: '#f5f5f5',
                 borderRadius: 2,
-                p: 4,
+                p: { xs: 2, md: 4 },
                 mb: 2,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                minHeight: 400,
+                minHeight: { xs: 300, md: 400 },
               }}
             >
               <img
@@ -94,14 +94,14 @@ const ProductDetail = () => {
             </Box>
             
             {selectedVariant.images.length > 1 && (
-              <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
+              <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap' }}>
                 {selectedVariant.images.map((img, idx) => (
                   <Box
                     key={idx}
                     onClick={() => setCurrentImage(idx)}
                     sx={{
-                      width: 80,
-                      height: 80,
+                      width: { xs: 60, md: 80 },
+                      height: { xs: 60, md: 80 },
                       border: currentImage === idx ? '2px solid #1976d2' : '1px solid #e0e0e0',
                       borderRadius: 1,
                       p: 1,
