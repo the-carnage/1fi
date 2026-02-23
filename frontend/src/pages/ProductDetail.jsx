@@ -13,6 +13,7 @@ import {
 import VariantSelector from '../components/VariantSelector';
 import StorageSelector from '../components/StorageSelector';
 import EmiPlanCard from '../components/EmiPlanCard';
+import Breadcrumbs from '../components/Breadcrumbs';
 import { getProductBySlug } from '../api';
 
 const ProductDetail = () => {
@@ -71,6 +72,8 @@ const ProductDetail = () => {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Breadcrumbs items={[{ label: product.name }]} />
+      
       <Grid container spacing={4}>
         {/* Left Side - Product Images */}
         <Grid item xs={12} md={6}>
