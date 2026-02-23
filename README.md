@@ -150,3 +150,131 @@ Get single product with full details
 1. **Apple iPhone 17 Pro** - 3 color variants (Silver, Desert Gold, Space Black)
 2. **Samsung Galaxy S24 Ultra** - 2 variants (Titanium Gray 256GB, Titanium Violet 512GB)
 3. **OnePlus 13** - 2 color variants (Midnight Ocean, Arctic Dawn)
+
+## Frontend Setup
+
+### Prerequisites
+- Node.js (v16 or higher)
+
+### Installation
+
+```bash
+cd frontend
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the frontend directory:
+
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+### Run Frontend Development Server
+
+```bash
+npm run dev
+```
+
+Frontend will run on `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+## Features
+
+### Backend Features
+- RESTful API with Express.js
+- MongoDB database with Mongoose ODM
+- Product and variant management
+- EMI plan calculations
+- CORS enabled for frontend integration
+
+### Frontend Features
+- Responsive design with Tailwind CSS and Material-UI
+- Product listing page with cards
+- Dynamic product detail pages with unique URLs
+- Variant selection (color swatches)
+- EMI plan selection with radio buttons
+- Image gallery with thumbnails
+- Real-time price and discount calculations
+- Loading states and error handling
+
+## Project Structure
+
+```
+1fi/
+├── backend/
+│   ├── models/
+│   │   └── Product.js
+│   ├── routes/
+│   │   └── products.js
+│   ├── .env
+│   ├── server.js
+│   ├── seed.js
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── EmiPlanCard.jsx
+│   │   │   └── VariantSelector.jsx
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   └── ProductDetail.jsx
+│   │   ├── api.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── .env
+│   └── package.json
+└── README.md
+```
+
+## Running the Full Application
+
+1. Start MongoDB (if running locally):
+```bash
+mongod
+```
+
+2. Seed the database:
+```bash
+cd backend
+npm run seed
+```
+
+3. Start the backend server:
+```bash
+cd backend
+npm run dev
+```
+
+4. In a new terminal, start the frontend:
+```bash
+cd frontend
+npm run dev
+```
+
+5. Open your browser and navigate to `http://localhost:5173`
+
+## Testing the Application
+
+1. Visit the home page to see all products
+2. Click on any product to view details
+3. Select different color variants to see images change
+4. Choose an EMI plan from the available options
+5. Click "Proceed" to simulate checkout
+
+## Technologies Used
+
+- **Backend:** Node.js, Express.js, MongoDB, Mongoose
+- **Frontend:** React 18, Vite, React Router, Axios
+- **UI:** Tailwind CSS, Material-UI (MUI)
+- **Development:** Nodemon, ESLint
