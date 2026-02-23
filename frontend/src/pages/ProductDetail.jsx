@@ -157,9 +157,16 @@ const ProductDetail = () => {
                 <Chip label={`${discount}% OFF`} color="success" sx={{ fontWeight: 600 }} />
               )}
             </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
-              MRP: ₹{selectedVariant.mrp.toLocaleString('en-IN')}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                MRP: ₹{selectedVariant.mrp.toLocaleString('en-IN')}
+              </Typography>
+              {discount > 0 && (
+                <Typography variant="body2" sx={{ color: '#2e7d32', fontWeight: 600 }}>
+                  You save ₹{(selectedVariant.mrp - selectedVariant.price).toLocaleString('en-IN')}
+                </Typography>
+              )}
+            </Box>
           </Box>
 
           <Divider sx={{ my: 3 }} />
