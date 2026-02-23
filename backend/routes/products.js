@@ -4,10 +4,13 @@ const Product = require('../models/Product');
 
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find().select('name slug brand category variants.images variants.price variants.mrp');
+    const products = await Product.find()
+      .select('name slug brand category variants.images variants.price variants.mrp')
+      .sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('error fetching products:', error);
+    res.status(500).json({ message: 'failed to fetch products', error: error.message });
   }
 });
 
@@ -19,7 +22,8 @@ router.get('/:slug', async (req, res) => {
     }
     res.json(product);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('error fetching product:', error);
+    res.status(500).json({ message: 'failed to fetch product', error: error.message });
   }
 });
 
