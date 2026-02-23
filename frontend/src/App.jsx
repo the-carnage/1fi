@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
+import NotFound from './pages/NotFound';
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products/:slug" element={<ProductDetail />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
