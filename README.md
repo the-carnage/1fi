@@ -266,11 +266,42 @@ npm run dev
 
 ## Testing the Application
 
-1. Visit the home page to see all products
-2. Click on any product to view details
+### Backend API Testing
+
+Test the backend APIs using curl or your browser:
+
+```bash
+# Get all products
+curl http://localhost:5000/api/products
+
+# Get specific product
+curl http://localhost:5000/api/products/iphone-17-pro
+curl http://localhost:5000/api/products/samsung-s24-ultra
+curl http://localhost:5000/api/products/oneplus-13
+```
+
+### Frontend Testing
+
+1. Visit the home page at `http://localhost:5173` to see all products
+2. Click on any product card to view full details
 3. Select different color variants to see images change
-4. Choose an EMI plan from the available options
-5. Click "Proceed" to simulate checkout
+4. Switch between storage options (if available)
+5. Choose an EMI plan from the available options
+6. Click "Proceed" to simulate checkout
+7. Test responsive design by resizing browser window
+
+### Verification Checklist
+
+- [ ] Backend server starts without errors
+- [ ] Database seeds successfully with 3 products
+- [ ] API endpoints return proper JSON responses
+- [ ] Frontend loads product listing page
+- [ ] Product cards display images, prices, and discounts
+- [ ] Product detail page loads with correct data
+- [ ] Variant selection updates images and pricing
+- [ ] EMI plan selection works with radio buttons
+- [ ] Responsive design works on mobile viewport
+- [ ] Navigation and routing work correctly
 
 ## Technologies Used
 
