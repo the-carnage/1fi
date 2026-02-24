@@ -1,68 +1,41 @@
-import { Box, Typography, Tooltip, alpha } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import { Box, Typography, alpha } from '@mui/material';
 
 const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
   const uniqueColors = [...new Map(variants.map(v => [v.color, v])).values()];
 
   return (
-    <Box sx={{ mb: { xs: 3, md: 4 }, width: '100%' }}>
-      <Typography 
-        variant="h6" 
-        sx={{ 
-          mb: 2, 
-          fontWeight: 700,
-          fontSize: { xs: '1rem', sm: '1.25rem' },
-        }}
-      >
-        Color: <Box component="span" sx={{ color: 'primary.main' }}>{selectedVariant.color}</Box>
+    <Box sx={{ mb: 2, width: '100%' }}>
+      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary', mb: 1.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Brand Color: <Box component="span" sx={{ color: 'primary.main', textTransform: 'none', letterSpacing: 0 }}>{selectedVariant.color}</Box>
       </Typography>
-      <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 }, flexWrap: 'wrap' }}>
+      <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
         {uniqueColors.map((variant) => {
           const isSelected = selectedVariant.color === variant.color;
           return (
-            <Tooltip title={variant.color} key={variant.color} arrow>
-              <Box
-                onClick={() => onSelect(variant)}
-                sx={{
-                  position: 'relative',
-                  width: { xs: 48, sm: 56 },
-                  height: { xs: 48, sm: 56 },
-                  borderRadius: '50%',
-                  bgcolor: variant.colorHex,
-                  border: '3px solid',
-                  borderColor: isSelected ? 'primary.main' : alpha('#000', 0.1),
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: isSelected
-                    ? '0 4px 12px rgba(99, 102, 241, 0.4)'
-                    : '0 2px 8px rgba(0, 0, 0, 0.1)',
-                  '&:hover': {
-                    transform: 'scale(1.15)',
-                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
-                  },
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {isSelected && (
-                  <Box
-                    sx={{
-                      width: { xs: 20, sm: 24 },
-                      height: { xs: 20, sm: 24 },
-                      borderRadius: '50%',
-                      bgcolor: 'primary.main',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 2px 8px rgba(99, 102, 241, 0.4)',
-                    }}
-                  >
-                    <CheckIcon sx={{ fontSize: { xs: 14, sm: 16 }, color: 'white' }} />
-                  </Box>
-                )}
-              </Box>
-            </Tooltip>
+            <Box
+              key={variant.color}
+              onClick={() => onSelect(variant)}
+              sx={{
+                px: 2,
+                py: 0.75,
+                borderRadius: '8px',
+                border: '2px solid',
+                borderColor: isSelected ? 'primary.main' : 'divider',
+                bgcolor: isSelected ? alpha('#6366f1', 0.08) : 'background.paper',
+                color: isSelected ? 'primary.main' : 'text.secondary',
+                fontWeight: 600,
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                userSelect: 'none',
+                '&:hover': {
+                  borderColor: 'primary.main',
+                  color: 'primary.main',
+                },
+              }}
+            >
+              {variant.color}
+            </Box>
           );
         })}
       </Box>

@@ -1,15 +1,16 @@
-import { AppBar, Toolbar, Container, Typography, Box, Button, IconButton, TextField, InputAdornment } from '@mui/material';
+import { AppBar, Toolbar, Container, Typography, Box, IconButton, TextField, InputAdornment } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = ({ searchQuery, onSearchChange }) => {
   return (
-    <AppBar 
-      position="sticky" 
+    <AppBar
+      position="sticky"
       elevation={0}
-      sx={{ 
+      sx={{
         bgcolor: 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
@@ -32,9 +33,9 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
             >
               <ShoppingBagIcon sx={{ color: 'white', fontSize: 24 }} />
             </Box>
-            <Typography 
-              variant="h6" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              sx={{
                 fontWeight: 800,
                 background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                 WebkitBackgroundClip: 'text',
@@ -45,7 +46,7 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
               1Fi
             </Typography>
           </Link>
-          
+
           <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mx: 4 }}>
             <TextField
               placeholder="Search products..."
@@ -72,26 +73,15 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
               }}
             />
           </Box>
-          
+
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <Button 
-              sx={{ 
-                color: 'text.primary',
-                '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.08)' }
-              }}
+            <IconButton
+              sx={{ color: 'text.primary', '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.08)' } }}
             >
-              Products
-            </Button>
-            <Button 
-              sx={{ 
-                color: 'text.primary',
-                '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.08)' }
-              }}
-            >
-              How it Works
-            </Button>
-            <IconButton 
-              sx={{ 
+              <ShoppingCartIcon />
+            </IconButton>
+            <IconButton
+              sx={{
                 ml: 1,
                 color: 'text.primary',
                 '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.08)' }

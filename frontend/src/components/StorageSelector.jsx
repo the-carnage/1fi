@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Stack } from '@mui/material';
+import { Box, Typography, alpha } from '@mui/material';
 
 const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
   const uniqueStorages = [...new Map(variants.map(v => [v.storage, v])).values()];
@@ -6,50 +6,41 @@ const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
   if (uniqueStorages.length <= 1) return null;
 
   return (
-    <Box sx={{ mb: { xs: 3, md: 4 }, width: '100%' }}>
-      <Typography 
-        variant="h6" 
-        sx={{ 
-          mb: 2, 
-          fontWeight: 700,
-          fontSize: { xs: '1rem', sm: '1.25rem' },
-        }}
-      >
-        Storage
+    <Box sx={{ mb: 2, width: '100%' }}>
+      <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary', mb: 1.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Internal Storage
       </Typography>
-      <Stack direction="row" spacing={{ xs: 1.5, sm: 2 }} flexWrap="wrap" useFlexGap>
+      <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
         {uniqueStorages.map((variant) => {
           const isSelected = selectedVariant.storage === variant.storage;
           return (
-            <Chip
+            <Box
               key={variant.storage}
-              label={variant.storage}
               onClick={() => onSelect(variant)}
               sx={{
-                px: { xs: 1.5, sm: 2 },
-                py: { xs: 2.5, sm: 3 },
-                fontSize: { xs: '0.9rem', sm: '1rem' },
-                fontWeight: 700,
-                borderRadius: 2,
+                px: 2,
+                py: 0.75,
+                borderRadius: '8px',
                 border: '2px solid',
                 borderColor: isSelected ? 'primary.main' : 'divider',
-                bgcolor: isSelected ? 'primary.main' : 'background.paper',
-                color: isSelected ? 'white' : 'text.primary',
+                bgcolor: isSelected ? alpha('#6366f1', 0.08) : 'background.paper',
+                color: isSelected ? 'primary.main' : 'text.secondary',
+                fontWeight: 700,
+                fontSize: '0.85rem',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
+                userSelect: 'none',
                 '&:hover': {
                   borderColor: 'primary.main',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                  color: 'primary.main',
                 },
-                ...(isSelected && {
-                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
-                }),
               }}
-            />
+            >
+              {variant.storage}
+            </Box>
           );
         })}
-      </Stack>
+      </Box>
     </Box>
   );
 };

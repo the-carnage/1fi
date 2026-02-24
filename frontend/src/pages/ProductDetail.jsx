@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Container,
-  Grid,
   Box,
   Typography,
   Button,
@@ -10,8 +8,9 @@ import {
   Chip,
   Divider,
   Stack,
-  alpha,
   Paper,
+  alpha,
+  Container,
 } from "@mui/material";
 import VariantSelector from "../components/VariantSelector";
 import StorageSelector from "../components/StorageSelector";
@@ -22,6 +21,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import CachedIcon from "@mui/icons-material/Cached";
+import StarIcon from "@mui/icons-material/Star";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import FlashOnIcon from "@mui/icons-material/FlashOn";
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -46,7 +48,6 @@ const ProductDetail = () => {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [slug]);
 
@@ -57,20 +58,13 @@ const ProductDetail = () => {
 
   const handleProceed = () => {
     alert(
-      `Proceeding with ${selectedVariant.variantName} - ${selectedPlan.tenure} months EMI plan`,
+      `Proceeding with ${selectedVariant.variantName} - ${selectedPlan.tenure} months EMI plan`
     );
   };
 
   if (loading) {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "60vh",
-        }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
         <CircularProgress size={48} thickness={4} />
       </Box>
     );
@@ -79,378 +73,409 @@ const ProductDetail = () => {
   if (error || !product) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Typography color="error" align="center">
-          {error}
-        </Typography>
+        <Typography color="error" align="center">{error}</Typography>
       </Container>
     );
   }
 
   const discount = Math.round(
-    ((selectedVariant.mrp - selectedVariant.price) / selectedVariant.mrp) * 100,
+    ((selectedVariant.mrp - selectedVariant.price) / selectedVariant.mrp) * 100
   );
+  const saving = selectedVariant.mrp - selectedVariant.price;
+  const emiAmount = selectedPlan
+    ? Math.round(selectedVariant.price / selectedPlan.tenure)
+    : null;
 
   return (
-    <Box
-      sx={{
-        bgcolor: "background.default",
-        minHeight: "100vh",
-        py: { xs: 2, md: 4 },
-      }}
-    >
-      <Container maxWidth="lg">
+    <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
+      {/* Breadcrumb */}
+      <Box sx={{ borderBottom: "1px solid", borderColor: "divider", px: { xs: 2, md: 4 }, py: 1.5 }}>
         <Breadcrumbs items={[{ label: product.name }]} />
+      </Box>
 
-        <Grid container spacing={4} sx={{ alignItems: "flex-start" }}>
-          {/* Left Half - Thumbnail strip + Main image */}
-          <Grid item xs={12} md={6}>
-            <Box
+      {/* Two-column split */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          minHeight: "calc(100vh - 56px)",
+          maxWidth: 1400,
+          mx: "auto",
+        }}
+      >
+        {/* ── LEFT HALF: sticky media panel ── */}
+        <Box
+          sx={{
+            width: { xs: "100%", md: "50%" },
+            position: { md: "sticky" },
+            top: 0,
+            height: { md: "100vh" },
+            bgcolor: "background.paper",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRight: "1px solid",
+            borderColor: "divider",
+            p: { xs: 2, md: 4 },
+            gap: 2,
+            overflow: "hidden",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              alignItems: "flex-start",
+              width: "100%",
+              maxWidth: 520,
+            }}
+          >
+            {/* Vertical thumbnail strip */}
+            {selectedVariant.images.length > 1 && (
+              <Stack direction="column" spacing={1.5} sx={{ flexShrink: 0 }}>
+                {selectedVariant.images.map((img, idx) => (
+                  <Paper
+                    key={idx}
+                    elevation={0}
+                    onClick={() => setCurrentImage(idx)}
+                    sx={{
+                      width: 64,
+                      height: 64,
+                      border: "2px solid",
+                      borderColor: currentImage === idx ? "primary.main" : "divider",
+                      borderRadius: 2,
+                      p: 0.75,
+                      cursor: "pointer",
+                      bgcolor: "background.default",
+                      transition: "all 0.2s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      "&:hover": { borderColor: "primary.main" },
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`view ${idx + 1}`}
+                      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                    />
+                  </Paper>
+                ))}
+              </Stack>
+            )}
+
+            {/* Hero image */}
+            <Paper
+              elevation={0}
               sx={{
-                position: { md: "sticky" },
-                top: 80,
+                flex: 1,
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 3,
+                bgcolor: "background.default",
+                height: { xs: 300, sm: 400, md: 480 },
                 display: "flex",
-                gap: 2,
-                alignItems: "flex-start",
+                alignItems: "center",
+                justifyContent: "center",
+                p: 4,
+                overflow: "hidden",
               }}
             >
-              {/* Vertical thumbnail strip */}
-              {selectedVariant.images.length > 1 && (
-                <Stack
-                  direction="column"
-                  spacing={1.5}
-                  sx={{ flexShrink: 0 }}
-                >
-                  {selectedVariant.images.map((img, idx) => (
-                    <Paper
-                      key={idx}
-                      onClick={() => setCurrentImage(idx)}
-                      elevation={0}
-                      sx={{
-                        width: 72,
-                        height: 72,
-                        border: "2px solid",
-                        borderColor:
-                          currentImage === idx ? "primary.main" : "divider",
-                        borderRadius: 2,
-                        p: 0.75,
-                        cursor: "pointer",
-                        bgcolor: "background.paper",
-                        transition: "all 0.2s ease",
-                        "&:hover": {
-                          borderColor: "primary.main",
-                        },
-                      }}
-                    >
-                      <img
-                        src={img}
-                        alt=""
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </Paper>
-                  ))}
-                </Stack>
-              )}
-
-              {/* Main image */}
-              <Paper
-                elevation={0}
-                sx={{
-                  flex: 1,
-                  border: "1px solid",
-                  borderColor: "divider",
-                  borderRadius: 3,
-                  bgcolor: "background.paper",
-                  height: 500,
-                  minHeight: 500,
-                  maxHeight: 500,
-                  overflow: "hidden",
-                  p: 3,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={selectedVariant.images[currentImage]}
-                  alt={product.name}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    objectFit: "contain",
-                  }}
-                />
-              </Paper>
-            </Box>
-          </Grid>
-
-          {/* Right Half - Product Details */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ width: "100%" }}>
-              <Chip
-                label={product.brand}
-                sx={{
-                  mb: 2,
-                  bgcolor: alpha("#6366f1", 0.1),
-                  color: "primary.main",
-                  fontWeight: 700,
-                  fontSize: { xs: "0.75rem", sm: "0.85rem" },
-                }}
+              <img
+                src={selectedVariant.images[currentImage]}
+                alt={product.name}
+                style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", transition: "opacity 0.3s ease" }}
               />
+            </Paper>
+          </Box>
 
-              <Typography
-                variant="h3"
-                component="h1"
-                sx={{
-                  fontWeight: 800,
-                  mb: 2,
-                  fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
-                  lineHeight: 1.2,
-                  wordBreak: "break-word",
-                }}
-              >
-                {product.name}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{
-                  mb: { xs: 3, md: 4 },
-                  lineHeight: 1.7,
-                  fontSize: { xs: "0.95rem", sm: "1rem" },
-                }}
-              >
-                {product.description}
-              </Typography>
-
-              <VariantSelector
-                variants={product.variants}
-                selectedVariant={selectedVariant}
-                onSelect={handleVariantChange}
-              />
-
-              <StorageSelector
-                variants={product.variants}
-                selectedVariant={selectedVariant}
-                onSelect={handleVariantChange}
-              />
-
-              <Divider sx={{ my: 4 }} />
-
-              <Paper
-                elevation={0}
-                sx={{
-                  p: { xs: 2, sm: 3 },
-                  mb: { xs: 3, md: 4 },
-                  borderRadius: 3,
-                  minHeight: 120,
-                  background:
-                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                  position: "relative",
-                  overflow: "hidden",
-                  width: "100%",
-                }}
-              >
-                <Stack
-                  direction={{ xs: "column", sm: "row" }}
-                  spacing={{ xs: 1, sm: 2 }}
-                  alignItems={{ xs: "flex-start", sm: "baseline" }}
-                  sx={{ mb: 1 }}
-                >
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: 800,
-                      color: "white",
-                      fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
-                    }}
-                  >
-                    ₹{selectedVariant.price.toLocaleString("en-IN")}
-                  </Typography>
-                  {discount > 0 && (
-                    <Chip
-                      label={`${discount}% OFF`}
-                      size="small"
-                      sx={{
-                        bgcolor: "rgba(255, 255, 255, 0.2)",
-                        color: "white",
-                        fontWeight: 700,
-                        backdropFilter: "blur(10px)",
-                      }}
-                    />
-                  )}
-                </Stack>
-                <Stack
-                  direction={{ xs: "column", sm: "row" }}
-                  spacing={{ xs: 0.5, sm: 2 }}
-                  alignItems={{ xs: "flex-start", sm: "center" }}
-                >
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      textDecoration: "line-through",
-                      color: "rgba(255, 255, 255, 0.7)",
-                      fontWeight: 500,
-                      fontSize: { xs: "0.875rem", sm: "1rem" },
-                    }}
-                  >
-                    MRP: ₹{selectedVariant.mrp.toLocaleString("en-IN")}
-                  </Typography>
-                  {discount > 0 && (
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "#fbbf24",
-                        fontWeight: 700,
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                      }}
-                    >
-                      You save ₹
-                      {(
-                        selectedVariant.mrp - selectedVariant.price
-                      ).toLocaleString("en-IN")}
-                    </Typography>
-                  )}
-                </Stack>
-              </Paper>
-
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={{ xs: 1.5, sm: 2 }}
-                sx={{ mb: { xs: 3, md: 4 } }}
-                useFlexGap
-              >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <LocalShippingIcon
-                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
-                  />
-                  <Typography
-                    variant="body2"
-                    fontWeight={600}
-                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
-                  >
-                    Free Delivery
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <VerifiedUserIcon
-                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
-                  />
-                  <Typography
-                    variant="body2"
-                    fontWeight={600}
-                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
-                  >
-                    1 Year Warranty
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <CachedIcon
-                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
-                  />
-                  <Typography
-                    variant="body2"
-                    fontWeight={600}
-                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
-                  >
-                    7 Days Return
-                  </Typography>
-                </Box>
-              </Stack>
-
-              <Divider sx={{ my: 4 }} />
-
-              <Box sx={{ width: "100%" }}>
-                <Stack
-                  direction={{ xs: "column", sm: "row" }}
-                  spacing={{ xs: 1, sm: 2 }}
-                  alignItems={{ xs: "flex-start", sm: "center" }}
-                  sx={{ mb: 3 }}
-                  useFlexGap
-                >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: { xs: "1.25rem", sm: "1.5rem" },
-                    }}
-                  >
-                    Choose Your EMI Plan
-                  </Typography>
-                  <Chip
-                    label="Backed by Mutual Funds"
-                    size="small"
-                    sx={{
-                      bgcolor: alpha("#10b981", 0.1),
-                      color: "success.main",
-                      fontWeight: 600,
-                      fontSize: { xs: "0.7rem", sm: "0.75rem" },
-                    }}
-                  />
-                </Stack>
-
-                <Stack
-                  spacing={{ xs: 2, sm: 3 }}
-                  sx={{ mb: { xs: 3, md: 4 }, width: "100%" }}
-                >
-                  {product.emiPlans.map((plan, idx) => (
-                    <EmiPlanCard
-                      key={idx}
-                      plan={plan}
-                      selected={selectedPlan === plan}
-                      onSelect={() => setSelectedPlan(plan)}
-                    />
-                  ))}
-                </Stack>
-
-                <Button
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                  onClick={handleProceed}
-                  startIcon={<CheckCircleIcon />}
+          {/* Delivery / warranty badges */}
+          <Stack direction="row" spacing={3} sx={{ mt: 1 }}>
+            {[
+              { icon: <LocalShippingIcon sx={{ fontSize: 18 }} />, label: "Free Delivery" },
+              { icon: <VerifiedUserIcon sx={{ fontSize: 18 }} />, label: "1 Yr Warranty" },
+              { icon: <CachedIcon sx={{ fontSize: 18 }} />, label: "7-Day Return" },
+            ].map((item) => (
+              <Box key={item.label} sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.5 }}>
+                <Box
                   sx={{
-                    py: { xs: 1.5, sm: 2 },
-                    fontSize: { xs: "1rem", sm: "1.1rem" },
-                    fontWeight: 700,
-                    borderRadius: 3,
-                    background:
-                      "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-                    boxShadow: "0 8px 24px rgba(99, 102, 241, 0.4)",
-                    "&:hover": {
-                      background:
-                        "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
-                      boxShadow: "0 12px 32px rgba(99, 102, 241, 0.5)",
-                      transform: "translateY(-2px)",
-                    },
-                    transition: "all 0.3s ease",
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    bgcolor: alpha("#6366f1", 0.08),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "primary.main",
                   }}
                 >
-                  Proceed with {selectedPlan.tenure} Month EMI
-                </Button>
-
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  sx={{
-                    display: "block",
-                    mt: 2,
-                    textAlign: "center",
-                    fontSize: { xs: "0.75rem", sm: "0.85rem" },
-                    px: 1,
-                  }}
-                >
-                  🔒 100% Secure Payment • No Hidden Charges • Easy Returns
+                  {item.icon}
+                </Box>
+                <Typography variant="caption" sx={{ fontSize: "0.7rem", color: "text.secondary" }}>
+                  {item.label}
                 </Typography>
               </Box>
+            ))}
+          </Stack>
+        </Box>
+
+        {/* ── RIGHT HALF: product details ── */}
+        <Box
+          sx={{
+            width: { xs: "100%", md: "50%" },
+            overflowY: "auto",
+            p: { xs: 2, sm: 3, md: 4 },
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {/* Brand */}
+          <Chip
+            label={product.brand}
+            size="small"
+            sx={{
+              mb: 1.5,
+              alignSelf: "flex-start",
+              bgcolor: alpha("#6366f1", 0.1),
+              color: "primary.main",
+              fontWeight: 700,
+              fontSize: "0.75rem",
+            }}
+          />
+
+          {/* Product name */}
+          <Typography
+            component="h1"
+            sx={{
+              fontWeight: 800,
+              fontSize: { xs: "1.3rem", sm: "1.55rem", md: "1.75rem" },
+              lineHeight: 1.3,
+              color: "text.primary",
+              mb: 1.5,
+            }}
+          >
+            {product.name}
+          </Typography>
+
+          {/* Rating */}
+          <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                bgcolor: "#166534",
+                px: 1,
+                py: 0.3,
+                borderRadius: "6px",
+              }}
+            >
+              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#fff" }}>4.2</Typography>
+              <StarIcon sx={{ fontSize: 14, color: "#fbbf24" }} />
             </Box>
-          </Grid>
-        </Grid>
-      </Container>
+            <Typography sx={{ fontSize: "0.85rem", color: "text.secondary" }}>
+              14 Ratings &amp; 4 Reviews
+            </Typography>
+          </Stack>
+
+          <Divider sx={{ mb: 2.5 }} />
+
+          {/* Price block */}
+          <Box sx={{ mb: 2.5 }}>
+            <Stack direction="row" alignItems="baseline" spacing={1.5} sx={{ mb: 0.5 }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: "1.75rem", md: "2.1rem" },
+                  fontWeight: 800,
+                  color: "text.primary",
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                ₹{selectedVariant.price.toLocaleString("en-IN")}
+              </Typography>
+              {discount > 0 && (
+                <Chip
+                  label={`${discount}% OFF`}
+                  size="small"
+                  sx={{
+                    bgcolor: alpha("#ef4444", 0.1),
+                    color: "#dc2626",
+                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                  }}
+                />
+              )}
+            </Stack>
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <Typography sx={{ fontSize: "0.9rem", color: "text.secondary", textDecoration: "line-through" }}>
+                MRP ₹{selectedVariant.mrp.toLocaleString("en-IN")}
+              </Typography>
+              {discount > 0 && (
+                <Typography sx={{ fontSize: "0.9rem", color: "success.main", fontWeight: 600 }}>
+                  Save ₹{saving.toLocaleString("en-IN")}
+                </Typography>
+              )}
+            </Stack>
+            <Typography sx={{ fontSize: "0.8rem", color: "text.secondary", mt: 0.25 }}>
+              Incl. all taxes
+            </Typography>
+            {emiAmount && (
+              <Box
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 0.75,
+                  mt: 1,
+                  bgcolor: alpha("#6366f1", 0.07),
+                  border: "1px solid",
+                  borderColor: alpha("#6366f1", 0.2),
+                  borderRadius: "8px",
+                  px: 1.5,
+                  py: 0.5,
+                }}
+              >
+                <CreditCardIcon sx={{ fontSize: 15, color: "primary.main" }} />
+                <Typography sx={{ fontSize: "0.82rem", color: "primary.main" }}>
+                  Or ₹{emiAmount.toLocaleString("en-IN")}/mo* &nbsp;
+                  <Box component="span" sx={{ fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
+                    EMI Options
+                  </Box>
+                </Typography>
+              </Box>
+            )}
+          </Box>
+
+          <Divider sx={{ mb: 2.5 }} />
+
+          {/* Color selector */}
+          <Box sx={{ mb: 2 }}>
+            <VariantSelector
+              variants={product.variants}
+              selectedVariant={selectedVariant}
+              onSelect={handleVariantChange}
+            />
+          </Box>
+
+          {/* Storage selector */}
+          <Box sx={{ mb: 2 }}>
+            <StorageSelector
+              variants={product.variants}
+              selectedVariant={selectedVariant}
+              onSelect={handleVariantChange}
+            />
+          </Box>
+
+          <Divider sx={{ mb: 2.5 }} />
+
+          {/* Super Savings */}
+          <Box sx={{ mb: 2.5 }}>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
+              <FlashOnIcon sx={{ color: "#f59e0b", fontSize: 18 }} />
+              <Typography sx={{ fontWeight: 700, fontSize: "0.95rem", color: "text.primary" }}>
+                Super Savings (3 OFFERS)
+              </Typography>
+            </Stack>
+            <Stack spacing={1.5}>
+              {[
+                { icon: "🏦", title: "HDFC Bank", desc: "Instant discount ₹3,000 & 6 months No-cost EMI on HDFC Bank Credit Card." },
+                { icon: "💳", title: "NeuCoins", desc: "Get up to 10% NeuCoins on select products with Tata NeuHDFC Credit Card." },
+                { icon: "🌙", title: "Midnight Deals", desc: "Get 6.5% off (offer auto applied at cart) on midnight purchases." },
+              ].map((offer) => (
+                <Box
+                  key={offer.title}
+                  sx={{
+                    display: "flex",
+                    gap: 1.5,
+                    p: 1.5,
+                    borderRadius: "10px",
+                    bgcolor: "background.paper",
+                    border: "1px solid",
+                    borderColor: "divider",
+                    transition: "border-color 0.2s",
+                    "&:hover": { borderColor: "primary.main" },
+                  }}
+                >
+                  <Typography sx={{ fontSize: "1.2rem", flexShrink: 0, lineHeight: 1.2 }}>{offer.icon}</Typography>
+                  <Box>
+                    <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: "text.primary", mb: 0.25 }}>
+                      {offer.title}
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.78rem", color: "text.secondary", lineHeight: 1.4 }}>
+                      {offer.desc}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+
+          <Divider sx={{ mb: 2.5 }} />
+
+          {/* EMI Plans */}
+          <Box sx={{ mb: 3 }}>
+            <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
+              <Typography sx={{ fontWeight: 700, fontSize: "1rem", color: "text.primary" }}>
+                Choose Your EMI Plan
+              </Typography>
+              <Chip
+                label="Backed by Mutual Funds"
+                size="small"
+                sx={{
+                  bgcolor: alpha("#10b981", 0.1),
+                  color: "success.main",
+                  fontWeight: 600,
+                  fontSize: "0.7rem",
+                }}
+              />
+            </Stack>
+            <Stack spacing={1.5}>
+              {product.emiPlans.map((plan, idx) => (
+                <EmiPlanCard
+                  key={idx}
+                  plan={plan}
+                  selected={selectedPlan === plan}
+                  onSelect={() => setSelectedPlan(plan)}
+                />
+              ))}
+            </Stack>
+          </Box>
+
+          {/* CTA */}
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
+            onClick={handleProceed}
+            startIcon={<CheckCircleIcon />}
+            sx={{
+              py: 1.75,
+              fontSize: "1rem",
+              fontWeight: 700,
+              borderRadius: "12px",
+              background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+              boxShadow: "0 8px 24px rgba(99,102,241,0.4)",
+              "&:hover": {
+                background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                boxShadow: "0 12px 32px rgba(99,102,241,0.5)",
+                transform: "translateY(-1px)",
+              },
+              transition: "all 0.25s ease",
+            }}
+          >
+            Proceed with {selectedPlan?.tenure} Month EMI
+          </Button>
+
+          <Typography
+            variant="caption"
+            sx={{ display: "block", mt: 1.5, textAlign: "center", color: "text.secondary", fontSize: "0.78rem" }}
+          >
+            🔒 100% Secure Payment &nbsp;•&nbsp; No Hidden Charges &nbsp;•&nbsp; Easy Returns
+          </Typography>
+
+          <Box sx={{ pb: 4 }} />
+        </Box>
+      </Box>
     </Box>
   );
 };
