@@ -6,11 +6,18 @@ const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
   if (uniqueStorages.length <= 1) return null;
 
   return (
-    <Box sx={{ mb: 4 }}>
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+    <Box sx={{ mb: { xs: 3, md: 4 }, width: '100%' }}>
+      <Typography 
+        variant="h6" 
+        sx={{ 
+          mb: 2, 
+          fontWeight: 700,
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+        }}
+      >
         Storage
       </Typography>
-      <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+      <Stack direction="row" spacing={{ xs: 1.5, sm: 2 }} flexWrap="wrap" useFlexGap>
         {uniqueStorages.map((variant) => {
           const isSelected = selectedVariant.storage === variant.storage;
           return (
@@ -19,9 +26,9 @@ const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
               label={variant.storage}
               onClick={() => onSelect(variant)}
               sx={{
-                px: 2,
-                py: 3,
-                fontSize: '1rem',
+                px: { xs: 1.5, sm: 2 },
+                py: { xs: 2.5, sm: 3 },
+                fontSize: { xs: '0.9rem', sm: '1rem' },
                 fontWeight: 700,
                 borderRadius: 2,
                 border: '2px solid',

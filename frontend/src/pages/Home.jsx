@@ -62,26 +62,28 @@ const Home = () => {
           },
         }}
       >
-        <Container maxWidth="xl" sx={{ py: { xs: 8, md: 12 }, position: 'relative' }}>
-          <Box sx={{ maxWidth: 800, mx: 'auto', textAlign: 'center' }}>
+        <Container maxWidth="xl" sx={{ py: { xs: 6, sm: 8, md: 12 }, position: 'relative' }}>
+          <Box sx={{ maxWidth: 800, mx: 'auto', textAlign: 'center', px: { xs: 2, sm: 0 } }}>
             <Chip
               label="🎉 Zero Down Payment Available"
               sx={{
-                mb: 3,
+                mb: { xs: 2, sm: 3 },
                 bgcolor: 'rgba(255, 255, 255, 0.2)',
                 color: 'white',
                 fontWeight: 600,
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
               }}
             />
             <Typography
               variant="h1"
               sx={{
                 color: 'white',
-                mb: 3,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
+                mb: { xs: 2, sm: 3 },
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
                 textShadow: '0 2px 20px rgba(0,0,0,0.2)',
+                lineHeight: 1.2,
               }}
             >
               Buy Premium Smartphones
@@ -101,9 +103,11 @@ const Home = () => {
               variant="h6"
               sx={{
                 color: 'rgba(255, 255, 255, 0.9)',
-                mb: 4,
+                mb: { xs: 3, sm: 4 },
                 fontWeight: 400,
                 lineHeight: 1.6,
+                fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' },
+                px: { xs: 1, sm: 0 },
               }}
             >
               EMI plans backed by mutual funds. No hidden charges. 0% interest options available.
@@ -111,25 +115,25 @@ const Home = () => {
 
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
-              spacing={3}
+              spacing={{ xs: 2, sm: 3 }}
               justifyContent="center"
               sx={{ mb: 2 }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white' }}>
-                <LocalOfferIcon />
-                <Typography variant="body1" fontWeight={600}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+                <LocalOfferIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                <Typography variant="body1" fontWeight={600} fontSize={{ xs: '0.9rem', sm: '1rem' }}>
                   Best Prices
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white' }}>
-                <TrendingUpIcon />
-                <Typography variant="body1" fontWeight={600}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+                <TrendingUpIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                <Typography variant="body1" fontWeight={600} fontSize={{ xs: '0.9rem', sm: '1rem' }}>
                   Flexible Plans
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white' }}>
-                <SecurityIcon />
-                <Typography variant="body1" fontWeight={600}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'white', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+                <SecurityIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                <Typography variant="body1" fontWeight={600} fontSize={{ xs: '0.9rem', sm: '1rem' }}>
                   100% Secure
                 </Typography>
               </Box>
@@ -139,13 +143,13 @@ const Home = () => {
       </Box>
 
       {/* Products Section */}
-      <Container maxWidth="xl" sx={{ py: 8 }}>
-        <Box sx={{ mb: 6, textAlign: 'center' }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 4, sm: 6, md: 8 }, px: { xs: 2, sm: 3 } }}>
+        <Box sx={{ mb: { xs: 4, sm: 5, md: 6 }, textAlign: 'center' }}>
           <Typography
             variant="h2"
             sx={{
               mb: 2,
-              fontSize: { xs: '2rem', md: '2.5rem' },
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -153,12 +157,19 @@ const Home = () => {
           >
             Featured Smartphones
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
+          <Typography 
+            variant="body1" 
+            color="text.secondary" 
+            sx={{ 
+              fontSize: { xs: '1rem', sm: '1.1rem' },
+              px: { xs: 2, sm: 0 },
+            }}
+          >
             Choose from our curated collection of premium devices
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
           {products.map((product) => (
             <Grid item xs={12} sm={6} lg={4} key={product._id}>
               <ProductCard product={product} />
@@ -168,83 +179,116 @@ const Home = () => {
       </Container>
 
       {/* Features Section */}
-      <Box sx={{ bgcolor: 'background.paper', py: 8, borderTop: '1px solid', borderColor: 'divider' }}>
-        <Container maxWidth="xl">
-          <Grid container spacing={4}>
+      <Box sx={{ bgcolor: 'background.paper', py: { xs: 4, sm: 6, md: 8 }, borderTop: '1px solid', borderColor: 'divider' }}>
+        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Grid container spacing={{ xs: 3, sm: 4 }}>
             <Grid item xs={12} md={4}>
-              <Box sx={{ textAlign: 'center', p: 3 }}>
+              <Box sx={{ textAlign: 'center', p: { xs: 2, sm: 3 } }}>
                 <Box
                   sx={{
-                    width: 80,
-                    height: 80,
+                    width: { xs: 64, sm: 80 },
+                    height: { xs: 64, sm: 80 },
                     borderRadius: '50%',
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     mx: 'auto',
-                    mb: 3,
+                    mb: { xs: 2, sm: 3 },
                     boxShadow: '0 8px 24px rgba(102, 126, 234, 0.3)',
                   }}
                 >
-                  <LocalOfferIcon sx={{ fontSize: 40, color: 'white' }} />
+                  <LocalOfferIcon sx={{ fontSize: { xs: 32, sm: 40 }, color: 'white' }} />
                 </Box>
-                <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    mb: 2, 
+                    fontWeight: 700,
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  }}
+                >
                   Best Prices
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}
+                >
                   Get the best deals on premium smartphones with exclusive discounts
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Box sx={{ textAlign: 'center', p: 3 }}>
+              <Box sx={{ textAlign: 'center', p: { xs: 2, sm: 3 } }}>
                 <Box
                   sx={{
-                    width: 80,
-                    height: 80,
+                    width: { xs: 64, sm: 80 },
+                    height: { xs: 64, sm: 80 },
                     borderRadius: '50%',
                     background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     mx: 'auto',
-                    mb: 3,
+                    mb: { xs: 2, sm: 3 },
                     boxShadow: '0 8px 24px rgba(240, 147, 251, 0.3)',
                   }}
                 >
-                  <TrendingUpIcon sx={{ fontSize: 40, color: 'white' }} />
+                  <TrendingUpIcon sx={{ fontSize: { xs: 32, sm: 40 }, color: 'white' }} />
                 </Box>
-                <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    mb: 2, 
+                    fontWeight: 700,
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  }}
+                >
                   Flexible EMI
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}
+                >
                   Choose from multiple EMI plans backed by mutual funds
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Box sx={{ textAlign: 'center', p: 3 }}>
+              <Box sx={{ textAlign: 'center', p: { xs: 2, sm: 3 } }}>
                 <Box
                   sx={{
-                    width: 80,
-                    height: 80,
+                    width: { xs: 64, sm: 80 },
+                    height: { xs: 64, sm: 80 },
                     borderRadius: '50%',
                     background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     mx: 'auto',
-                    mb: 3,
+                    mb: { xs: 2, sm: 3 },
                     boxShadow: '0 8px 24px rgba(79, 172, 254, 0.3)',
                   }}
                 >
-                  <SecurityIcon sx={{ fontSize: 40, color: 'white' }} />
+                  <SecurityIcon sx={{ fontSize: { xs: 32, sm: 40 }, color: 'white' }} />
                 </Box>
-                <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    mb: 2, 
+                    fontWeight: 700,
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  }}
+                >
                   100% Secure
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}
+                >
                   Safe and secure transactions with complete data protection
                 </Typography>
               </Box>

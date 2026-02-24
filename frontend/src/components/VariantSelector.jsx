@@ -5,11 +5,18 @@ const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
   const uniqueColors = [...new Map(variants.map(v => [v.color, v])).values()];
 
   return (
-    <Box sx={{ mb: 4 }}>
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+    <Box sx={{ mb: { xs: 3, md: 4 }, width: '100%' }}>
+      <Typography 
+        variant="h6" 
+        sx={{ 
+          mb: 2, 
+          fontWeight: 700,
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+        }}
+      >
         Color: <Box component="span" sx={{ color: 'primary.main' }}>{selectedVariant.color}</Box>
       </Typography>
-      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 }, flexWrap: 'wrap' }}>
         {uniqueColors.map((variant) => {
           const isSelected = selectedVariant.color === variant.color;
           return (
@@ -18,8 +25,8 @@ const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
                 onClick={() => onSelect(variant)}
                 sx={{
                   position: 'relative',
-                  width: 56,
-                  height: 56,
+                  width: { xs: 48, sm: 56 },
+                  height: { xs: 48, sm: 56 },
                   borderRadius: '50%',
                   bgcolor: variant.colorHex,
                   border: '3px solid',
@@ -41,8 +48,8 @@ const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
                 {isSelected && (
                   <Box
                     sx={{
-                      width: 24,
-                      height: 24,
+                      width: { xs: 20, sm: 24 },
+                      height: { xs: 20, sm: 24 },
                       borderRadius: '50%',
                       bgcolor: 'primary.main',
                       display: 'flex',
@@ -51,7 +58,7 @@ const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
                       boxShadow: '0 2px 8px rgba(99, 102, 241, 0.4)',
                     }}
                   >
-                    <CheckIcon sx={{ fontSize: 16, color: 'white' }} />
+                    <CheckIcon sx={{ fontSize: { xs: 14, sm: 16 }, color: 'white' }} />
                   </Box>
                 )}
               </Box>
