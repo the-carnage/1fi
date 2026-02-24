@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'welcome to 1fi api' });
 });
 
-app.use('/api/products', productRoutes);
+app.use('/products', productRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
