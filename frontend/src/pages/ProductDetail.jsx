@@ -164,32 +164,21 @@ const ProductDetail = () => {
                   borderColor: "divider",
                   borderRadius: 3,
                   bgcolor: "background.paper",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
                   height: 500,
                   overflow: "hidden",
                   p: 3,
                   position: "relative",
                 }}
               >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    inset: 0,
-                    p: 3,
+                <img
+                  src={selectedVariant.images[currentImage]}
+                  alt={product.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
                   }}
-                >
-                  <img
-                    src={selectedVariant.images[currentImage]}
-                    alt={product.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                    }}
-                  />
-                </Box>
+                />
               </Paper>
             </Box>
           </Grid>
