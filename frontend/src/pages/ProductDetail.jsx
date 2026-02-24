@@ -101,46 +101,24 @@ const ProductDetail = () => {
       <Container maxWidth="lg">
         <Breadcrumbs items={[{ label: product.name }]} />
 
-        <Grid container spacing={4} justifyContent="center">
-          {/* Left Side - Product Images */}
+        <Grid container spacing={4}>
+          {/* Left Half - Thumbnail strip + Main image */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ position: { md: "sticky" }, top: 100 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  bgcolor: alpha("#6366f1", 0.03),
-                  borderRadius: 4,
-                  p: 3,
-                  mb: 2,
-                  border: "1px solid",
-                  borderColor: "divider",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 480,
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src={selectedVariant.images[currentImage]}
-                  alt={product.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    transition: "transform 0.3s ease",
-                  }}
-                />
-              </Paper>
-
+            <Box
+              sx={{
+                position: { md: "sticky" },
+                top: 80,
+                display: "flex",
+                gap: 2,
+                alignItems: "flex-start",
+              }}
+            >
+              {/* Vertical thumbnail strip */}
               {selectedVariant.images.length > 1 && (
                 <Stack
-                  direction="row"
-                  spacing={{ xs: 1, sm: 2 }}
-                  justifyContent="center"
-                  flexWrap="wrap"
-                  useFlexGap
+                  direction="column"
+                  spacing={1.5}
+                  sx={{ flexShrink: 0 }}
                 >
                   {selectedVariant.images.map((img, idx) => (
                     <Paper
@@ -148,19 +126,18 @@ const ProductDetail = () => {
                       onClick={() => setCurrentImage(idx)}
                       elevation={0}
                       sx={{
-                        width: 80,
-                        height: 80,
+                        width: 72,
+                        height: 72,
                         border: "2px solid",
                         borderColor:
                           currentImage === idx ? "primary.main" : "divider",
                         borderRadius: 2,
-                        p: 1,
+                        p: 0.75,
                         cursor: "pointer",
-                        bgcolor: alpha("#6366f1", 0.03),
-                        transition: "all 0.3s ease",
+                        bgcolor: "background.paper",
+                        transition: "all 0.2s ease",
                         "&:hover": {
                           borderColor: "primary.main",
-                          transform: "scale(1.05)",
                         },
                       }}
                     >
@@ -177,10 +154,47 @@ const ProductDetail = () => {
                   ))}
                 </Stack>
               )}
+
+              {/* Main image */}
+              <Paper
+                elevation={0}
+                sx={{
+                  flex: 1,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  borderRadius: 3,
+                  bgcolor: "background.paper",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 500,
+                  overflow: "hidden",
+                  p: 3,
+                  position: "relative",
+                }}
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    p: 3,
+                  }}
+                >
+                  <img
+                    src={selectedVariant.images[currentImage]}
+                    alt={product.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
+              </Paper>
             </Box>
           </Grid>
 
-          {/* Right Side - Product Details */}
+          {/* Right Half - Product Details */}
           <Grid item xs={12} md={6}>
             <Box sx={{ width: "100%" }}>
               <Chip
