@@ -1,36 +1,47 @@
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Box, Chip, Stack, alpha } from '@mui/material';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Chip,
+  Stack,
+  alpha,
+} from "@mui/material";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ProductCard = ({ product }) => {
   const firstVariant = product.variants[0];
-  const discount = Math.round(((firstVariant.mrp - firstVariant.price) / firstVariant.mrp) * 100);
+  const discount = Math.round(
+    ((firstVariant.mrp - firstVariant.price) / firstVariant.mrp) * 100,
+  );
 
   return (
-    <Link to={`/products/${product.slug}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/products/${product.slug}`} style={{ textDecoration: "none" }}>
       <Card
         sx={{
-          width: '100%',
+          width: "100%",
           height: 480,
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          overflow: 'hidden',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          border: '1px solid',
-          borderColor: 'divider',
-          boxSizing: 'border-box',
-          '&:hover': {
-            transform: 'translateY(-8px)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
-            borderColor: 'primary.main',
-            '& .product-image': {
-              transform: 'scale(1.05)',
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          overflow: "hidden",
+          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          border: "1px solid",
+          borderColor: "divider",
+          boxSizing: "border-box",
+          "&:hover": {
+            transform: "translateY(-8px)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)",
+            borderColor: "primary.main",
+            "& .product-image": {
+              transform: "scale(1.05)",
             },
-            '& .view-details': {
+            "& .view-details": {
               opacity: 1,
-              transform: 'translateX(0)',
+              transform: "translateX(0)",
             },
           },
         }}
@@ -41,24 +52,24 @@ const ProductCard = ({ product }) => {
             label={`${discount}% OFF`}
             size="small"
             sx={{
-              position: 'absolute',
+              position: "absolute",
               top: 16,
               right: 16,
               zIndex: 1,
-              bgcolor: 'success.main',
-              color: 'white',
+              bgcolor: "success.main",
+              color: "white",
               fontWeight: 700,
-              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.4)',
+              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.4)",
             }}
           />
         )}
 
         <Box
           sx={{
-            position: 'relative',
-            bgcolor: alpha('#6366f1', 0.03),
-            overflow: 'hidden',
-            height: 240,
+            position: "relative",
+            bgcolor: alpha("#6366f1", 0.03),
+            overflow: "hidden",
+            height: 280,
             flexShrink: 0,
           }}
         >
@@ -68,25 +79,33 @@ const ProductCard = ({ product }) => {
             alt={product.name}
             className="product-image"
             sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
               p: 3,
-              transition: 'transform 0.4s ease',
+              transition: "transform 0.4s ease",
             }}
           />
         </Box>
 
-        <CardContent sx={{ flexGrow: 1, p: 3, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <CardContent
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Chip
             label={product.brand}
             size="small"
             sx={{
               mb: 1.5,
-              bgcolor: alpha('#6366f1', 0.1),
-              color: 'primary.main',
+              bgcolor: alpha("#6366f1", 0.1),
+              color: "primary.main",
               fontWeight: 600,
-              fontSize: '0.75rem',
+              fontSize: "0.75rem",
             }}
           />
 
@@ -96,71 +115,77 @@ const ProductCard = ({ product }) => {
             sx={{
               mb: 2,
               fontWeight: 700,
-              fontSize: '1.1rem',
+              fontSize: "1.1rem",
               lineHeight: 1.4,
-              color: 'text.primary',
-              display: '-webkit-box',
+              color: "text.primary",
+              display: "-webkit-box",
               WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
             }}
           >
             {product.name}
           </Typography>
 
-          <Stack direction="row" spacing={1} alignItems="baseline" sx={{ mb: 1.5 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="baseline"
+            sx={{ mb: 1.5 }}
+          >
             <Typography
               variant="h5"
               sx={{
                 fontWeight: 800,
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
-              ₹{firstVariant.price.toLocaleString('en-IN')}
+              ₹{firstVariant.price.toLocaleString("en-IN")}
             </Typography>
             {discount > 0 && (
               <Typography
                 variant="body2"
                 sx={{
-                  textDecoration: 'line-through',
-                  color: 'text.secondary',
+                  textDecoration: "line-through",
+                  color: "text.secondary",
                   fontWeight: 500,
                 }}
               >
-                ₹{firstVariant.mrp.toLocaleString('en-IN')}
+                ₹{firstVariant.mrp.toLocaleString("en-IN")}
               </Typography>
             )}
           </Stack>
 
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 0.5,
-              color: 'text.secondary',
-              fontSize: '0.875rem',
+              color: "text.secondary",
+              fontSize: "0.875rem",
             }}
           >
             <Typography variant="body2" color="text.secondary">
-              {product.variants.length} variant{product.variants.length > 1 ? 's' : ''} available
+              {product.variants.length} variant
+              {product.variants.length > 1 ? "s" : ""} available
             </Typography>
           </Box>
 
           <Box
             className="view-details"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 0.5,
               mt: 2,
-              color: 'primary.main',
+              color: "primary.main",
               fontWeight: 600,
-              fontSize: '0.9rem',
+              fontSize: "0.9rem",
               opacity: 0,
-              transform: 'translateX(-10px)',
-              transition: 'all 0.3s ease',
+              transform: "translateX(-10px)",
+              transition: "all 0.3s ease",
             }}
           >
             View Details
