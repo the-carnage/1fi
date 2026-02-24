@@ -299,9 +299,9 @@ const Home = ({ searchQuery }) => {
           </FormControl>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} alignItems="stretch">
           {filteredProducts.map((product) => (
-            <Grid item xs={12} sm={6} md={3} lg={3} xl={3} key={product._id}>
+            <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: "flex" }}>
               <ProductCard product={product} />
             </Grid>
           ))}

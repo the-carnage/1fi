@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
   );
 
   return (
-    <Link to={`/products/${product.slug}`} style={{ textDecoration: "none", display: "block", height: "100%" }}>
+    <Link to={`/products/${product.slug}`} style={{ textDecoration: "none", display: "block", width: "100%" }}>
       <Card
         sx={{
           width: "100%",
