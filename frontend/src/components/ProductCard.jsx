@@ -11,6 +11,7 @@ const ProductCard = ({ product }) => {
     <Link to={`/products/${product.slug}`} style={{ textDecoration: 'none' }}>
       <Card
         sx={{
+          width: '100%',
           height: 480,
           display: 'flex',
           flexDirection: 'column',
@@ -19,6 +20,7 @@ const ProductCard = ({ product }) => {
           transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
           border: '1px solid',
           borderColor: 'divider',
+          boxSizing: 'border-box',
           '&:hover': {
             transform: 'translateY(-8px)',
             boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
@@ -56,16 +58,18 @@ const ProductCard = ({ product }) => {
             position: 'relative',
             bgcolor: alpha('#6366f1', 0.03),
             overflow: 'hidden',
-            height: 280,
+            height: 240,
+            flexShrink: 0,
           }}
         >
           <CardMedia
             component="img"
-            height="280"
             image={firstVariant.images[0]}
             alt={product.name}
             className="product-image"
             sx={{
+              width: '100%',
+              height: '100%',
               objectFit: 'contain',
               p: 3,
               transition: 'transform 0.4s ease',
@@ -73,7 +77,7 @@ const ProductCard = ({ product }) => {
           />
         </Box>
 
-        <CardContent sx={{ flexGrow: 1, p: 3 }}>
+        <CardContent sx={{ flexGrow: 1, p: 3, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
           <Chip
             label={product.brand}
             size="small"
