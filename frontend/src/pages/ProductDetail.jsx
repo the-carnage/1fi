@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -12,16 +12,16 @@ import {
   Stack,
   alpha,
   Paper,
-} from '@mui/material';
-import VariantSelector from '../components/VariantSelector';
-import StorageSelector from '../components/StorageSelector';
-import EmiPlanCard from '../components/EmiPlanCard';
-import Breadcrumbs from '../components/Breadcrumbs';
-import { getProductBySlug } from '../api';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import CachedIcon from '@mui/icons-material/Cached';
+} from "@mui/material";
+import VariantSelector from "../components/VariantSelector";
+import StorageSelector from "../components/StorageSelector";
+import EmiPlanCard from "../components/EmiPlanCard";
+import Breadcrumbs from "../components/Breadcrumbs";
+import { getProductBySlug } from "../api";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import CachedIcon from "@mui/icons-material/Cached";
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -40,7 +40,7 @@ const ProductDetail = () => {
         setSelectedVariant(data.variants[0]);
         setSelectedPlan(data.emiPlans[0]);
       } catch (err) {
-        setError('Product not found');
+        setError("Product not found");
         console.error(err);
       } finally {
         setLoading(false);
@@ -56,12 +56,21 @@ const ProductDetail = () => {
   };
 
   const handleProceed = () => {
-    alert(`Proceeding with ${selectedVariant.variantName} - ${selectedPlan.tenure} months EMI plan`);
+    alert(
+      `Proceeding with ${selectedVariant.variantName} - ${selectedPlan.tenure} months EMI plan`,
+    );
   };
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
         <CircularProgress size={48} thickness={4} />
       </Box>
     );
@@ -70,56 +79,66 @@ const ProductDetail = () => {
   if (error || !product) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Typography color="error" align="center">{error}</Typography>
+        <Typography color="error" align="center">
+          {error}
+        </Typography>
       </Container>
     );
   }
 
-  const discount = Math.round(((selectedVariant.mrp - selectedVariant.price) / selectedVariant.mrp) * 100);
+  const discount = Math.round(
+    ((selectedVariant.mrp - selectedVariant.price) / selectedVariant.mrp) * 100,
+  );
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', py: { xs: 2, md: 4 } }}>
-      <Container maxWidth="xl">
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        minHeight: "100vh",
+        py: { xs: 2, md: 4 },
+      }}
+    >
+      <Container maxWidth="lg">
         <Breadcrumbs items={[{ label: product.name }]} />
 
-        <Grid container spacing={{ xs: 3, md: 4 }}>
+        <Grid container spacing={4} justifyContent="center">
           {/* Left Side - Product Images */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ position: { md: 'sticky' }, top: 100 }}>
+            <Box sx={{ position: { md: "sticky" }, top: 100 }}>
               <Paper
                 elevation={0}
                 sx={{
-                  bgcolor: alpha('#6366f1', 0.03),
+                  bgcolor: alpha("#6366f1", 0.03),
                   borderRadius: 4,
-                  p: { xs: 2, sm: 3, md: 5 },
+                  p: 3,
                   mb: 2,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  minHeight: { xs: 300, sm: 400, md: 500 },
-                  position: 'relative',
-                  overflow: 'hidden',
+                  border: "1px solid",
+                  borderColor: "divider",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 480,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
                 <img
                   src={selectedVariant.images[currentImage]}
                   alt={product.name}
                   style={{
-                    maxWidth: '100%',
-                    maxHeight: '500px',
-                    objectFit: 'contain',
-                    transition: 'transform 0.3s ease',
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    transition: "transform 0.3s ease",
                   }}
                 />
               </Paper>
 
               {selectedVariant.images.length > 1 && (
-                <Stack 
-                  direction="row" 
-                  spacing={{ xs: 1, sm: 2 }} 
-                  justifyContent="center" 
+                <Stack
+                  direction="row"
+                  spacing={{ xs: 1, sm: 2 }}
+                  justifyContent="center"
                   flexWrap="wrap"
                   useFlexGap
                 >
@@ -129,25 +148,30 @@ const ProductDetail = () => {
                       onClick={() => setCurrentImage(idx)}
                       elevation={0}
                       sx={{
-                        width: { xs: 60, sm: 70, md: 90 },
-                        height: { xs: 60, sm: 70, md: 90 },
-                        border: '2px solid',
-                        borderColor: currentImage === idx ? 'primary.main' : 'divider',
+                        width: 80,
+                        height: 80,
+                        border: "2px solid",
+                        borderColor:
+                          currentImage === idx ? "primary.main" : "divider",
                         borderRadius: 2,
                         p: 1,
-                        cursor: 'pointer',
-                        bgcolor: alpha('#6366f1', 0.03),
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          borderColor: 'primary.main',
-                          transform: 'scale(1.05)',
+                        cursor: "pointer",
+                        bgcolor: alpha("#6366f1", 0.03),
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          borderColor: "primary.main",
+                          transform: "scale(1.05)",
                         },
                       }}
                     >
                       <img
                         src={img}
                         alt=""
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
                       />
                     </Paper>
                   ))}
@@ -158,15 +182,15 @@ const ProductDetail = () => {
 
           {/* Right Side - Product Details */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Chip
                 label={product.brand}
                 sx={{
                   mb: 2,
-                  bgcolor: alpha('#6366f1', 0.1),
-                  color: 'primary.main',
+                  bgcolor: alpha("#6366f1", 0.1),
+                  color: "primary.main",
                   fontWeight: 700,
-                  fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                  fontSize: { xs: "0.75rem", sm: "0.85rem" },
                 }}
               />
 
@@ -176,21 +200,21 @@ const ProductDetail = () => {
                 sx={{
                   fontWeight: 800,
                   mb: 2,
-                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+                  fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
                   lineHeight: 1.2,
-                  wordBreak: 'break-word',
+                  wordBreak: "break-word",
                 }}
               >
                 {product.name}
               </Typography>
 
-              <Typography 
-                variant="body1" 
-                color="text.secondary" 
-                sx={{ 
-                  mb: { xs: 3, md: 4 }, 
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{
+                  mb: { xs: 3, md: 4 },
                   lineHeight: 1.7,
-                  fontSize: { xs: '0.95rem', sm: '1rem' },
+                  fontSize: { xs: "0.95rem", sm: "1rem" },
                 }}
               >
                 {product.description}
@@ -216,93 +240,115 @@ const ProductDetail = () => {
                   p: { xs: 2, sm: 3 },
                   mb: { xs: 3, md: 4 },
                   borderRadius: 3,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  width: '100%',
+                  background:
+                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  position: "relative",
+                  overflow: "hidden",
+                  width: "100%",
                 }}
               >
-                <Stack 
-                  direction={{ xs: 'column', sm: 'row' }} 
-                  spacing={{ xs: 1, sm: 2 }} 
-                  alignItems={{ xs: 'flex-start', sm: 'baseline' }} 
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={{ xs: 1, sm: 2 }}
+                  alignItems={{ xs: "flex-start", sm: "baseline" }}
                   sx={{ mb: 1 }}
                 >
                   <Typography
                     variant="h3"
                     sx={{
                       fontWeight: 800,
-                      color: 'white',
-                      fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+                      color: "white",
+                      fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
                     }}
                   >
-                    ₹{selectedVariant.price.toLocaleString('en-IN')}
+                    ₹{selectedVariant.price.toLocaleString("en-IN")}
                   </Typography>
                   {discount > 0 && (
                     <Chip
                       label={`${discount}% OFF`}
                       size="small"
                       sx={{
-                        bgcolor: 'rgba(255, 255, 255, 0.2)',
-                        color: 'white',
+                        bgcolor: "rgba(255, 255, 255, 0.2)",
+                        color: "white",
                         fontWeight: 700,
-                        backdropFilter: 'blur(10px)',
+                        backdropFilter: "blur(10px)",
                       }}
                     />
                   )}
                 </Stack>
-                <Stack 
-                  direction={{ xs: 'column', sm: 'row' }} 
-                  spacing={{ xs: 0.5, sm: 2 }} 
-                  alignItems={{ xs: 'flex-start', sm: 'center' }}
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={{ xs: 0.5, sm: 2 }}
+                  alignItems={{ xs: "flex-start", sm: "center" }}
                 >
                   <Typography
                     variant="body2"
                     sx={{
-                      textDecoration: 'line-through',
-                      color: 'rgba(255, 255, 255, 0.7)',
+                      textDecoration: "line-through",
+                      color: "rgba(255, 255, 255, 0.7)",
                       fontWeight: 500,
-                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      fontSize: { xs: "0.875rem", sm: "1rem" },
                     }}
                   >
-                    MRP: ₹{selectedVariant.mrp.toLocaleString('en-IN')}
+                    MRP: ₹{selectedVariant.mrp.toLocaleString("en-IN")}
                   </Typography>
                   {discount > 0 && (
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
-                        color: '#fbbf24', 
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "#fbbf24",
                         fontWeight: 700,
-                        fontSize: { xs: '0.875rem', sm: '1rem' },
+                        fontSize: { xs: "0.875rem", sm: "1rem" },
                       }}
                     >
-                      You save ₹{(selectedVariant.mrp - selectedVariant.price).toLocaleString('en-IN')}
+                      You save ₹
+                      {(
+                        selectedVariant.mrp - selectedVariant.price
+                      ).toLocaleString("en-IN")}
                     </Typography>
                   )}
                 </Stack>
               </Paper>
 
-              <Stack 
-                direction={{ xs: 'column', sm: 'row' }} 
-                spacing={{ xs: 1.5, sm: 2 }} 
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={{ xs: 1.5, sm: 2 }}
                 sx={{ mb: { xs: 3, md: 4 } }}
                 useFlexGap
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <LocalShippingIcon sx={{ color: 'primary.main', fontSize: { xs: 20, sm: 24 } }} />
-                  <Typography variant="body2" fontWeight={600} fontSize={{ xs: '0.875rem', sm: '0.95rem' }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <LocalShippingIcon
+                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
+                  />
+                  <Typography
+                    variant="body2"
+                    fontWeight={600}
+                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
+                  >
                     Free Delivery
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <VerifiedUserIcon sx={{ color: 'primary.main', fontSize: { xs: 20, sm: 24 } }} />
-                  <Typography variant="body2" fontWeight={600} fontSize={{ xs: '0.875rem', sm: '0.95rem' }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <VerifiedUserIcon
+                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
+                  />
+                  <Typography
+                    variant="body2"
+                    fontWeight={600}
+                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
+                  >
                     1 Year Warranty
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <CachedIcon sx={{ color: 'primary.main', fontSize: { xs: 20, sm: 24 } }} />
-                  <Typography variant="body2" fontWeight={600} fontSize={{ xs: '0.875rem', sm: '0.95rem' }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <CachedIcon
+                    sx={{ color: "primary.main", fontSize: { xs: 20, sm: 24 } }}
+                  />
+                  <Typography
+                    variant="body2"
+                    fontWeight={600}
+                    fontSize={{ xs: "0.875rem", sm: "0.95rem" }}
+                  >
                     7 Days Return
                   </Typography>
                 </Box>
@@ -310,11 +356,11 @@ const ProductDetail = () => {
 
               <Divider sx={{ my: 4 }} />
 
-              <Box sx={{ width: '100%' }}>
-                <Stack 
-                  direction={{ xs: 'column', sm: 'row' }}
+              <Box sx={{ width: "100%" }}>
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
                   spacing={{ xs: 1, sm: 2 }}
-                  alignItems={{ xs: 'flex-start', sm: 'center' }}
+                  alignItems={{ xs: "flex-start", sm: "center" }}
                   sx={{ mb: 3 }}
                   useFlexGap
                 >
@@ -322,7 +368,7 @@ const ProductDetail = () => {
                     variant="h5"
                     sx={{
                       fontWeight: 700,
-                      fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                      fontSize: { xs: "1.25rem", sm: "1.5rem" },
                     }}
                   >
                     Choose Your EMI Plan
@@ -331,15 +377,18 @@ const ProductDetail = () => {
                     label="Backed by Mutual Funds"
                     size="small"
                     sx={{
-                      bgcolor: alpha('#10b981', 0.1),
-                      color: 'success.main',
+                      bgcolor: alpha("#10b981", 0.1),
+                      color: "success.main",
                       fontWeight: 600,
-                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      fontSize: { xs: "0.7rem", sm: "0.75rem" },
                     }}
                   />
                 </Stack>
 
-                <Stack spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 3, md: 4 }, width: '100%' }}>
+                <Stack
+                  spacing={{ xs: 2, sm: 3 }}
+                  sx={{ mb: { xs: 3, md: 4 }, width: "100%" }}
+                >
                   {product.emiPlans.map((plan, idx) => (
                     <EmiPlanCard
                       key={idx}
@@ -358,17 +407,19 @@ const ProductDetail = () => {
                   startIcon={<CheckCircleIcon />}
                   sx={{
                     py: { xs: 1.5, sm: 2 },
-                    fontSize: { xs: '1rem', sm: '1.1rem' },
+                    fontSize: { xs: "1rem", sm: "1.1rem" },
                     fontWeight: 700,
                     borderRadius: 3,
-                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                    boxShadow: '0 8px 24px rgba(99, 102, 241, 0.4)',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-                      boxShadow: '0 12px 32px rgba(99, 102, 241, 0.5)',
-                      transform: 'translateY(-2px)',
+                    background:
+                      "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                    boxShadow: "0 8px 24px rgba(99, 102, 241, 0.4)",
+                    "&:hover": {
+                      background:
+                        "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                      boxShadow: "0 12px 32px rgba(99, 102, 241, 0.5)",
+                      transform: "translateY(-2px)",
                     },
-                    transition: 'all 0.3s ease',
+                    transition: "all 0.3s ease",
                   }}
                 >
                   Proceed with {selectedPlan.tenure} Month EMI
@@ -378,10 +429,10 @@ const ProductDetail = () => {
                   variant="caption"
                   color="text.secondary"
                   sx={{
-                    display: 'block',
+                    display: "block",
                     mt: 2,
-                    textAlign: 'center',
-                    fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                    textAlign: "center",
+                    fontSize: { xs: "0.75rem", sm: "0.85rem" },
                     px: 1,
                   }}
                 >
