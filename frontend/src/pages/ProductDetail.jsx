@@ -101,7 +101,7 @@ const ProductDetail = () => {
       <Container maxWidth="lg">
         <Breadcrumbs items={[{ label: product.name }]} />
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ alignItems: "flex-start" }}>
           {/* Left Half - Thumbnail strip + Main image */}
           <Grid item xs={12} md={6}>
             <Box
@@ -247,6 +247,7 @@ const ProductDetail = () => {
                   p: { xs: 2, sm: 3 },
                   mb: { xs: 3, md: 4 },
                   borderRadius: 3,
+                  minHeight: 120,
                   background:
                     "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                   position: "relative",
