@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   Container,
-  Grid,
   Typography,
   Box,
   CircularProgress,
@@ -299,13 +298,21 @@ const Home = ({ searchQuery }) => {
           </FormControl>
         </Box>
 
-        <Grid container spacing={3} alignItems="stretch">
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            },
+            gap: 3,
+          }}
+        >
           {filteredProducts.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: "flex" }}>
-              <ProductCard product={product} />
-            </Grid>
+            <ProductCard key={product._id} product={product} />
           ))}
-        </Grid>
+        </Box>
       </Container>
 
       {/* Features Section */}
