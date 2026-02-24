@@ -281,4 +281,3 @@ Run `npm run seed` from the `backend/` directory to populate the database.
 - Storage and color variant selector
 - EMI plan cards with monthly breakdown
 - Discount badge (% OFF) auto-calculated from MRP vs price
-
