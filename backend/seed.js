@@ -1,420 +1,567 @@
-const mongoose = require('mongoose');
-const Product = require('./models/Product');
-require('dotenv').config();
+const mongoose = require("mongoose");
+const Product = require("./models/Product");
+require("dotenv").config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/onefi';
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/onefi";
 
 const products = [
   {
-    name: 'Apple iPhone 17 Pro',
-    slug: 'iphone-17-pro',
-    brand: 'Apple',
-    category: 'Smartphones',
-    description: 'The most advanced iPhone ever with titanium design, A18 Pro chip, and revolutionary camera system.',
+    name: "Apple iPhone 15",
+    slug: "apple-iphone-15",
+    brand: "Apple",
+    category: "Smartphones",
+    description:
+      "Dynamic Island experience with A16 Bionic chip and advanced camera system.",
     variants: [
       {
-        variantName: 'Silver 256GB',
-        storage: '256GB',
-        color: 'Silver',
-        colorHex: '#E3E4E5',
-        mrp: 144900,
-        price: 134900,
+        variantName: "Blue 128GB",
+        storage: "128GB",
+        color: "Blue",
+        colorHex: "#6FA8DC",
+        mrp: 59900,
+        price: 54790,
         images: [
-          'https://images.unsplash.com/photo-1678652197831-2d180705cd2c?w=800',
-          'https://images.unsplash.com/photo-1678652197838-b5d1d8c1b95a?w=800'
-        ]
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300738_0_c9hoz7.png?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300738_1_onpxb0.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300738_2_u4l4fz.png?tr=w-225",
+        ],
       },
       {
-        variantName: 'Desert Gold 256GB',
-        storage: '256GB',
-        color: 'Desert Gold',
-        colorHex: '#F4E4C1',
-        mrp: 144900,
-        price: 134900,
+        variantName: "Black 256GB",
+        storage: "256GB",
+        color: "Black",
+        colorHex: "#111111",
+        mrp: 69900,
+        price: 64790,
         images: [
-          'https://images.unsplash.com/photo-1696446702183-cbd50c2a8d66?w=800',
-          'https://images.unsplash.com/photo-1696446702189-2b0e4b6d3c78?w=800'
-        ]
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300700_0_m0ffoy.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300700_1_tuf9ln.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300700_2_vrhvyg.png?tr=w-225",
+        ],
       },
-      {
-        variantName: 'Space Black 256GB',
-        storage: '256GB',
-        color: 'Space Black',
-        colorHex: '#2C2C2E',
-        mrp: 144900,
-        price: 134900,
-        images: [
-          'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=800',
-          'https://images.unsplash.com/photo-1592286927505-b0e2cv67d14b?w=800'
-        ]
-      }
     ],
     emiPlans: [
-      { tenure: 3, monthlyAmount: 44967, interestRate: 0, cashback: true, cashbackAmount: 2000 },
-      { tenure: 6, monthlyAmount: 22483, interestRate: 0, cashback: true, cashbackAmount: 3000 },
-      { tenure: 12, monthlyAmount: 11242, interestRate: 0, cashback: false, cashbackAmount: 0 },
-      { tenure: 24, monthlyAmount: 5621, interestRate: 0, cashback: false, cashbackAmount: 0 },
-      { tenure: 36, monthlyAmount: 4247, interestRate: 10.5, cashback: false, cashbackAmount: 0 },
-      { tenure: 48, monthlyAmount: 3435, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-    ]
+      {
+        tenure: 3,
+        monthlyAmount: 18263,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 1500,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 9131,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 4565,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
   },
+
   {
-    name: 'Samsung Galaxy S24 Ultra',
-    slug: 'samsung-s24-ultra',
-    brand: 'Samsung',
-    category: 'Smartphones',
-    description: 'Ultimate flagship with S Pen, 200MP camera, and Galaxy AI features for enhanced productivity.',
+    name: "Apple iPhone 15 Plus",
+    slug: "apple-iphone-15-plus",
+    brand: "Apple",
+    category: "Smartphones",
+    description:
+      "Large 6.7-inch Super Retina XDR display with powerful battery performance.",
     variants: [
       {
-        variantName: 'Titanium Gray 256GB',
-        storage: '256GB',
-        color: 'Titanium Gray',
-        colorHex: '#5F6368',
-        mrp: 129999,
+        variantName: "Pink 128GB",
+        storage: "128GB",
+        color: "Pink",
+        colorHex: "#F4C2C2",
+        mrp: 79900,
+        price: 74900,
+        images: [
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300775_0_geceou.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300775_1_stnswk.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300775_2_ql3hiu.png?tr=w-225",
+        ],
+      },
+      {
+        variantName: "Yellow 256GB",
+        storage: "256GB",
+        color: "Yellow",
+        colorHex: "#FFD700",
+        mrp: 89900,
+        price: 84900,
+        images: [
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300773_0_o89yyb.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300773_1_dhulq4.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/300773_2_ojmant.png?tr=w-225",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 21665,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 2000,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 10832,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 5416,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "Samsung Galaxy S23 Ultra",
+    slug: "samsung-galaxy-s23-ultra",
+    brand: "Samsung",
+    category: "Smartphones",
+    description:
+      "Flagship Samsung phone with S Pen support and pro-grade camera.",
+    variants: [
+      {
+        variantName: "Phantom Black 256GB",
+        storage: "256GB",
+        color: "Black",
+        colorHex: "#1C1C1E",
+        mrp: 149999,
+        price: 109990,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/u/a/l/-original-imagzm8qrfdmhy8z.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/2/a/j/-original-imagmg6gcxzaggfy.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/f/1/k/-original-imagmg6gzej4y4hf.jpeg?q=90",
+        ],
+      },
+      {
+        variantName: "Green 512GB",
+        storage: "512GB",
+        color: "Green",
+        colorHex: "#2ECC71",
+        mrp: 159999,
+        price: 119990,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/i/5/1/-original-imagzm8pvabtmeys.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/g/m/t/-original-imagmg6gyhzhh3fb.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/q/y/u/-original-imagmg6ggzazdevx.jpeg?q=90",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 36663,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 2500,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 18331,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 9165,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "Samsung Galaxy S24 Ultra",
+    slug: "samsung-galaxy-s24-ultra",
+    brand: "Samsung",
+    category: "Smartphones",
+    description: "Galaxy AI powered flagship with premium titanium frame.",
+    variants: [
+      {
+        variantName: "Titanium Gray 256GB",
+        storage: "256GB",
+        color: "Gray",
+        colorHex: "#5F6368",
+        mrp: 144999,
         price: 119999,
         images: [
-          'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800',
-          'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800'
-        ]
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303838_oqpio4.png?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303838_1_l9ya6v.png?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303838_2_pxxmn1.png?tr=w-225",
+        ],
       },
       {
-        variantName: 'Titanium Violet 512GB',
-        storage: '512GB',
-        color: 'Titanium Violet',
-        colorHex: '#8B7BA8',
-        mrp: 139999,
+        variantName: "Titanium Violet 512GB",
+        storage: "512GB",
+        color: "Violet",
+        colorHex: "#8B7BA8",
+        mrp: 154999,
         price: 129999,
         images: [
-          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800',
-          'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800'
-        ]
-      }
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303817_cc5lmd.png?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303817_1_xspbe7.png?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/303817_2_uil61o.png?tr=w-225",
+        ],
+      },
     ],
     emiPlans: [
-      { tenure: 3, monthlyAmount: 40000, interestRate: 0, cashback: true, cashbackAmount: 1500 },
-      { tenure: 6, monthlyAmount: 20000, interestRate: 0, cashback: true, cashbackAmount: 2500 },
-      { tenure: 12, monthlyAmount: 10000, interestRate: 0, cashback: false, cashbackAmount: 0 },
-      { tenure: 24, monthlyAmount: 5417, interestRate: 5, cashback: false, cashbackAmount: 0 },
-      { tenure: 36, monthlyAmount: 3778, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-    ]
-  }
+      {
+        tenure: 3,
+        monthlyAmount: 40000,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 2000,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 20000,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 10000,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "OnePlus 12",
+    slug: "oneplus-12",
+    brand: "OnePlus",
+    category: "Smartphones",
+    description: "Snapdragon flagship with fast charging and AMOLED display.",
+    variants: [
+      {
+        variantName: "Flowy Emerald 256GB",
+        storage: "256GB",
+        color: "Green",
+        colorHex: "#2ECC71",
+        mrp: 64999,
+        price: 59999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/7/z/j/12-cph2573-oneplus-original-imahjngudb3jjkew.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/4/n/r/12-cph2573-oneplus-original-imahjnguthcucenp.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/t/r/c/12-cph2573-oneplus-original-imahjngugxny5yuy.jpeg?q=90",
+        ],
+      },
+
+      ,
+      {
+        variantName: "Silky Black 512GB",
+        storage: "512GB",
+        color: "Black",
+        colorHex: "#000000",
+        mrp: 69999,
+        price: 64999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/w/f/q/12-cph2573-oneplus-original-imahjngszsdyddfh.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/8/g/c/12-cph2573-oneplus-original-imahjngsbrmzunr9.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/z/i/e/12-cph2573-oneplus-original-imahjngs8xrmzrz2.jpeg?q=90",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 19999,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 1000,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 9999,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 4999,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "iQOO Neo 9 Pro",
+    slug: "iqoo-neo-9-pro",
+    brand: "iQOO",
+    category: "Smartphones",
+    description: "Gaming focused smartphone with flagship processor.",
+    variants: [
+      {
+        variantName: "Red White 256GB",
+        storage: "256GB",
+        color: "Red",
+        colorHex: "#FF3B30",
+        mrp: 39999,
+        price: 34999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/i/i/p/neo9-pro-i2304-iqoo-original-imagz8ke4rza59y4.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/j/e/h/neo9-pro-i2304-iqoo-original-imagz8kewwrehtsf.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/c/p/t/neo9-pro-i2304-iqoo-original-imagz8ker66f9py4.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/n/i/q/neo9-pro-i2304-iqoo-original-imagz8keddtrpgzp.jpeg?q=90",
+        ],
+      },
+      {
+        variantName: "Black 128GB",
+        storage: "128GB",
+        color: "Black",
+        colorHex: "#111111",
+        mrp: 37999,
+        price: 32999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/a/r/t/neo9-pro-neo9-pro-iqoo-original-imagz8kg2999rtwj.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/y/j/4/neo9-pro-neo9-pro-iqoo-original-imagz8kgnj9s7syx.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/q/o/r/neo9-pro-neo9-pro-iqoo-original-imagz8kgceznqncq.jpeg?q=90",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 11666,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 5833,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 2916,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "Xiaomi 14",
+    slug: "xiaomi-14",
+    brand: "Xiaomi",
+    category: "Smartphones",
+    description: "Leica tuned flagship with premium glass design.",
+    variants: [
+      {
+        variantName: "Black 256GB",
+        storage: "256GB",
+        color: "Black",
+        colorHex: "#000000",
+        mrp: 69999,
+        price: 64999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/5/8/w/-original-imahfpwvcfvxvqfh.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/v/h/1/-original-imah4wyqdnmyvd3d.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/4/2/4/-original-imah4wyq9b8p4gfe.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/k/x/v/-original-imah4wyqd8jyvhrq.jpeg?q=90",
+        ],
+      },
+      {
+        variantName: "White 512GB",
+        storage: "512GB",
+        color: "White",
+        colorHex: "#FFFFFF",
+        mrp: 74999,
+        price: 69999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/s/r/m/-original-imah34gxy5562pgz.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/a/c/g/-original-imah34gxyyqjtq4c.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/1/5/p/-original-imah34gxdyuz6yqj.jpeg?q=90",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 21666,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 1000,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 10833,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 5416,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "Realme GT 6",
+    slug: "realme-gt-6",
+    brand: "Realme",
+    category: "Smartphones",
+    description:
+      "High refresh rate AMOLED display with fast charging performance.",
+    variants: [
+      {
+        variantName: "Silver 256GB",
+        storage: "256GB",
+        color: "Silver",
+        colorHex: "#DADADA",
+        mrp: 36999,
+        price: 32999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/l/i/a/-original-imah2y7hazjdbrzh.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/e/w/a/-original-imah26hp6hrph5uu.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/y/a/q/-original-imah26hpfz3v9zhh.jpeg?q=90",
+        ],
+      },
+      {
+        variantName: "Green 128GB",
+        storage: "128GB",
+        color: "Green",
+        colorHex: "#2ECC71",
+        mrp: 34999,
+        price: 30999,
+        images: [
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/m/1/7/gt-6-rmx3851-realme-original-imah2y7ewhzjpfhd.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/5/y/m/-original-imah26hqgxsns8e8.jpeg?q=90",
+          "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/v/f/l/-original-imah26hqzseugd9z.jpeg?q=90",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 10999,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 5499,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 2749,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
+
+  {
+    name: "Google Pixel 8",
+    slug: "google-pixel-8",
+    brand: "Google",
+    category: "Smartphones",
+    description: "Pure Android experience with advanced AI camera features.",
+    variants: [
+      {
+        variantName: "Obsidian 128GB",
+        storage: "128GB",
+        color: "Black",
+        colorHex: "#2B2B2B",
+        mrp: 75999,
+        price: 69999,
+        images: [
+          "https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/products/pictures/item/free/original/google/494494548/0/emhIk4EWpT-_T-Ys4W44b-Google-Pixel-9A-494494548-i-1-1200Wx1200H.jpeg",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/314882_1_6S3QluZ7K.png?updatedAt=1762782598665?tr=w-225",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Feature%20Callout%202025/314882_2_DECIrVDF1.png?updatedAt=1758087246328?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/314882_4_c5J-fWpko.png?updatedAt=1758548742438?tr=w-225",
+        ],
+      },
+      {
+        variantName: "Hazel 256GB",
+        storage: "256GB",
+        color: "Hazel",
+        colorHex: "#8B7765",
+        mrp: 81999,
+        price: 75999,
+        images: [
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/314883_0_dVwL6rPzk.png?updatedAt=1758548803978?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/314883_0_dVwL6rPzk.png?updatedAt=1758548803978?tr=w-1000",
+          "https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/314883_7_uczq6rK_U.png?updatedAt=1758548810599?tr=w-1000",
+        ],
+      },
+    ],
+    emiPlans: [
+      {
+        tenure: 3,
+        monthlyAmount: 23333,
+        interestRate: 0,
+        cashback: true,
+        cashbackAmount: 1500,
+      },
+      {
+        tenure: 6,
+        monthlyAmount: 11666,
+        interestRate: 0,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+      {
+        tenure: 12,
+        monthlyAmount: 5833,
+        interestRate: 10.5,
+        cashback: false,
+        cashbackAmount: 0,
+      },
+    ],
+  },
 ];
-
-products.push({
-  name: 'OnePlus 13',
-  slug: 'oneplus-13',
-  brand: 'OnePlus',
-  category: 'Smartphones',
-  description: 'Flagship killer with Snapdragon 8 Gen 3, Hasselblad camera, and blazing fast 100W charging.',
-  variants: [
-    {
-      variantName: 'Midnight Ocean 256GB',
-      storage: '256GB',
-      color: 'Midnight Ocean',
-      colorHex: '#1A3A52',
-      mrp: 69999,
-      price: 64999,
-      images: [
-        'https://images.unsplash.com/photo-1581993192008-63e896f4f744?w=800',
-        'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800'
-      ]
-    },
-    {
-      variantName: 'Arctic Dawn 256GB',
-      storage: '256GB',
-      color: 'Arctic Dawn',
-      colorHex: '#E8F1F5',
-      mrp: 69999,
-      price: 64999,
-      images: [
-        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800',
-        'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800'
-      ]
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 21667, interestRate: 0, cashback: true, cashbackAmount: 1000 },
-    { tenure: 6, monthlyAmount: 10833, interestRate: 0, cashback: true, cashbackAmount: 1500 },
-    { tenure: 12, monthlyAmount: 5417, interestRate: 0, cashback: false, cashbackAmount: 0 },
-    { tenure: 24, monthlyAmount: 2917, interestRate: 5, cashback: false, cashbackAmount: 0 },
-    { tenure: 36, monthlyAmount: 2042, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-  ]
-});
-
-
-products.push(
-{
-  name: 'Google Pixel 9 Pro',
-  slug: 'google-pixel-9-pro',
-  brand: 'Google',
-  category: 'Smartphones',
-  description: 'Pure Android experience with AI photography and Tensor chip.',
-  variants: [
-    {
-      variantName: 'Obsidian 256GB',
-      storage: '256GB',
-      color: 'Obsidian',
-      colorHex: '#1C1C1E',
-      mrp: 109999,
-      price: 99999,
-      images: [
-        'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'
-      ]
-    },
-    {
-      variantName: 'Porcelain 256GB',
-      storage: '256GB',
-      color: 'Porcelain',
-      colorHex: '#F5F5F7',
-      mrp: 109999,
-      price: 99999,
-      images: [
-        'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800'
-      ]
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 33333, interestRate: 0, cashback: true, cashbackAmount: 2000 },
-    { tenure: 6, monthlyAmount: 16667, interestRate: 0, cashback: true, cashbackAmount: 2500 },
-    { tenure: 12, monthlyAmount: 8333, interestRate: 0, cashback: false, cashbackAmount: 0 },
-    { tenure: 24, monthlyAmount: 4500, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'iQOO 12',
-  slug: 'iqoo-12',
-  brand: 'iQOO',
-  category: 'Smartphones',
-  description: 'Performance beast powered by Snapdragon flagship processor.',
-  variants: [
-    {
-      variantName: 'Legend White 256GB',
-      storage: '256GB',
-      color: 'Legend White',
-      colorHex: '#FFFFFF',
-      mrp: 57999,
-      price: 52999,
-      images: ['https://images.unsplash.com/photo-1510557880182-3f8f794b8e2f?w=800']
-    },
-    {
-      variantName: 'Alpha Black 256GB',
-      storage: '256GB',
-      color: 'Alpha Black',
-      colorHex: '#000000',
-      mrp: 57999,
-      price: 52999,
-      images: ['https://images.unsplash.com/photo-1510557880182-3f8f794b8e2f?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 17667, interestRate: 0, cashback: true, cashbackAmount: 800 },
-    { tenure: 6, monthlyAmount: 8833, interestRate: 0, cashback: false, cashbackAmount: 0 },
-    { tenure: 12, monthlyAmount: 4417, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Xiaomi 14 Ultra',
-  slug: 'xiaomi-14-ultra',
-  brand: 'Xiaomi',
-  category: 'Smartphones',
-  description: 'Leica powered camera flagship with stunning display.',
-  variants: [
-    {
-      variantName: 'Black 512GB',
-      storage: '512GB',
-      color: 'Black',
-      colorHex: '#111111',
-      mrp: 99999,
-      price: 94999,
-      images: ['https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 6, monthlyAmount: 15833, interestRate: 0, cashback: true, cashbackAmount: 1500 },
-    { tenure: 12, monthlyAmount: 7917, interestRate: 0, cashback: false, cashbackAmount: 0 },
-    { tenure: 24, monthlyAmount: 4200, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Realme GT 6',
-  slug: 'realme-gt-6',
-  brand: 'Realme',
-  category: 'Smartphones',
-  description: 'High refresh rate AMOLED with ultra fast charging.',
-  variants: [
-    {
-      variantName: 'Racing Green 256GB',
-      storage: '256GB',
-      color: 'Racing Green',
-      colorHex: '#0B6623',
-      mrp: 39999,
-      price: 36999,
-      images: ['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 12333, interestRate: 0, cashback: true, cashbackAmount: 500 },
-    { tenure: 12, monthlyAmount: 3083, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Nothing Phone (3)',
-  slug: 'nothing-phone-3',
-  brand: 'Nothing',
-  category: 'Smartphones',
-  description: 'Transparent design with Glyph interface.',
-  variants: [
-    {
-      variantName: 'White 256GB',
-      storage: '256GB',
-      color: 'White',
-      colorHex: '#F2F2F2',
-      mrp: 49999,
-      price: 45999,
-      images: ['https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 6, monthlyAmount: 7667, interestRate: 0, cashback: true, cashbackAmount: 700 },
-    { tenure: 12, monthlyAmount: 3833, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Motorola Edge 50 Ultra',
-  slug: 'motorola-edge-50-ultra',
-  brand: 'Motorola',
-  category: 'Smartphones',
-  description: 'Premium curved display with clean Android.',
-  variants: [
-    {
-      variantName: 'Forest Grey 256GB',
-      storage: '256GB',
-      color: 'Forest Grey',
-      colorHex: '#3A3A3C',
-      mrp: 59999,
-      price: 54999,
-      images: ['https://images.unsplash.com/photo-1581993192008-63e896f4f744?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 6, monthlyAmount: 9167, interestRate: 0, cashback: true, cashbackAmount: 900 },
-    { tenure: 24, monthlyAmount: 2700, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Vivo X100 Pro',
-  slug: 'vivo-x100-pro',
-  brand: 'Vivo',
-  category: 'Smartphones',
-  description: 'ZEISS optics with flagship photography experience.',
-  variants: [
-    {
-      variantName: 'Asteroid Black 256GB',
-      storage: '256GB',
-      color: 'Asteroid Black',
-      colorHex: '#101010',
-      mrp: 89999,
-      price: 84999,
-      images: ['https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 28333, interestRate: 0, cashback: true, cashbackAmount: 1200 },
-    { tenure: 12, monthlyAmount: 7083, interestRate: 0, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Oppo Find X7 Ultra',
-  slug: 'oppo-find-x7-ultra',
-  brand: 'Oppo',
-  category: 'Smartphones',
-  description: 'Flagship camera with periscope zoom.',
-  variants: [
-    {
-      variantName: 'Ocean Blue 512GB',
-      storage: '512GB',
-      color: 'Ocean Blue',
-      colorHex: '#005F73',
-      mrp: 99999,
-      price: 93999,
-      images: ['https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 6, monthlyAmount: 15667, interestRate: 0, cashback: true, cashbackAmount: 1300 },
-    { tenure: 24, monthlyAmount: 4300, interestRate: 10.5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Asus ROG Phone 8',
-  slug: 'asus-rog-phone-8',
-  brand: 'Asus',
-  category: 'Smartphones',
-  description: 'Gaming focused flagship with advanced cooling.',
-  variants: [
-    {
-      variantName: 'Phantom Black 512GB',
-      storage: '512GB',
-      color: 'Phantom Black',
-      colorHex: '#000000',
-      mrp: 94999,
-      price: 89999,
-      images: ['https://images.unsplash.com/photo-1510557880182-3f8f794b8e2f?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 3, monthlyAmount: 30000, interestRate: 0, cashback: true, cashbackAmount: 1000 },
-    { tenure: 12, monthlyAmount: 7500, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-},
-
-{
-  name: 'Poco F6 Pro',
-  slug: 'poco-f6-pro',
-  brand: 'Poco',
-  category: 'Smartphones',
-  description: 'Value flagship with powerful processor.',
-  variants: [
-    {
-      variantName: 'Yellow 256GB',
-      storage: '256GB',
-      color: 'Yellow',
-      colorHex: '#FFD60A',
-      mrp: 42999,
-      price: 39999,
-      images: ['https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800']
-    }
-  ],
-  emiPlans: [
-    { tenure: 6, monthlyAmount: 6667, interestRate: 0, cashback: true, cashbackAmount: 600 },
-    { tenure: 12, monthlyAmount: 3333, interestRate: 5, cashback: false, cashbackAmount: 0 }
-  ]
-}
-);
 
 async function seedDatabase() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('connected to mongodb');
+    console.log("connected to mongodb");
 
     await Product.deleteMany({});
-    console.log('cleared existing products');
+    console.log("cleared existing products");
 
     await Product.insertMany(products);
-    console.log('seeded 13 products successfully');
+    console.log("seeded products successfully");
 
     mongoose.connection.close();
-    console.log('database connection closed');
+    console.log("database connection closed");
   } catch (error) {
-    console.error('seeding error:', error);
+    console.error("seeding error:", error);
     process.exit(1);
   }
 }
