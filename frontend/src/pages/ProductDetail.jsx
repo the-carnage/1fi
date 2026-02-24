@@ -165,17 +165,21 @@ const ProductDetail = () => {
                   borderRadius: 3,
                   bgcolor: "background.paper",
                   height: 500,
+                  minHeight: 500,
+                  maxHeight: 500,
                   overflow: "hidden",
                   p: 3,
-                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <img
                   src={selectedVariant.images[currentImage]}
                   alt={product.name}
                   style={{
-                    width: "100%",
-                    height: "100%",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
                     objectFit: "contain",
                   }}
                 />
