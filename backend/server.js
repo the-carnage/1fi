@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/onefi';
 
 mongoose.connect(MONGODB_URI)
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'welcome to 1fi api' });
 });
 
-app.use('/products', productRoutes);
+app.use('/api/products', productRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
