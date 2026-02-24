@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
@@ -160,7 +159,6 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <Footer />
           </div>
         </Router>
       </ErrorBoundary>
