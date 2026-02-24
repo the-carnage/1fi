@@ -1,42 +1,50 @@
-import { Breadcrumbs as MuiBreadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs as MuiBreadcrumbs, Link, Typography, Box } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import HomeIcon from '@mui/icons-material/Home';
 
 const Breadcrumbs = ({ items }) => {
   return (
-    <MuiBreadcrumbs
-      separator={<NavigateNextIcon fontSize="small" />}
-      sx={{ mb: 2 }}
-    >
-      <Link
-        component={RouterLink}
-        to="/"
-        underline="hover"
-        color="inherit"
-        sx={{ '&:hover': { color: 'primary.main' } }}
+    <Box sx={{ mb: 3 }}>
+      <MuiBreadcrumbs
+        separator={<NavigateNextIcon fontSize="small" sx={{ color: 'text.secondary' }} />}
+        sx={{
+          '& .MuiBreadcrumbs-separator': {
+            mx: 1,
+          },
+        }}
       >
-        Home
-      </Link>
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
-        return isLast ? (
-          <Typography key={index} color="text.primary" fontWeight={600}>
-            {item.label}
-          </Typography>
-        ) : (
-          <Link
+        <Link
+          component={RouterLink}
+          to="/"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            color: 'text.secondary',
+            textDecoration: 'none',
+            fontWeight: 500,
+            '&:hover': {
+              color: 'primary.main',
+            },
+          }}
+        >
+          <HomeIcon fontSize="small" />
+          Home
+        </Link>
+        {items.map((item, index) => (
+          <Typography
             key={index}
-            component={RouterLink}
-            to={item.path}
-            underline="hover"
-            color="inherit"
-            sx={{ '&:hover': { color: 'primary.main' } }}
+            sx={{
+              color: 'text.primary',
+              fontWeight: 600,
+            }}
           >
             {item.label}
-          </Link>
-        );
-      })}
-    </MuiBreadcrumbs>
+          </Typography>
+        ))}
+      </MuiBreadcrumbs>
+    </Box>
   );
 };
 
