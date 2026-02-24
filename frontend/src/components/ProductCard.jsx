@@ -19,11 +19,20 @@ const ProductCard = ({ product }) => {
   );
 
   return (
-    <Link to={`/products/${product.slug}`} style={{ textDecoration: "none", display: "block", width: "100%" }}>
+    <Link
+      to={`/products/${product.slug}`}
+      style={{
+        textDecoration: "none",
+        display: "flex",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <Card
         sx={{
           width: "100%",
-          height: 420,
+          height: "100%",
+          minHeight: 420,
           display: "flex",
           flexDirection: "column",
           position: "relative",
@@ -92,7 +101,7 @@ const ProductCard = ({ product }) => {
         {/* Fixed-height content area */}
         <CardContent
           sx={{
-            height: 200,
+            flex: 1,
             flexShrink: 0,
             p: "16px !important",
             display: "flex",
@@ -133,7 +142,12 @@ const ProductCard = ({ product }) => {
             {product.name}
           </Typography>
 
-          <Stack direction="row" spacing={1} alignItems="baseline" sx={{ mb: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="baseline"
+            sx={{ mb: 1 }}
+          >
             <Typography
               sx={{
                 fontWeight: 800,
@@ -148,15 +162,24 @@ const ProductCard = ({ product }) => {
             {discount > 0 && (
               <Typography
                 variant="body2"
-                sx={{ textDecoration: "line-through", color: "text.secondary", fontSize: "0.8rem" }}
+                sx={{
+                  textDecoration: "line-through",
+                  color: "text.secondary",
+                  fontSize: "0.8rem",
+                }}
               >
                 ₹{firstVariant.mrp.toLocaleString("en-IN")}
               </Typography>
             )}
           </Stack>
 
-          <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.78rem", mb: "auto" }}>
-            {product.variants.length} variant{product.variants.length > 1 ? "s" : ""} available
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontSize: "0.78rem", mb: "auto" }}
+          >
+            {product.variants.length} variant
+            {product.variants.length > 1 ? "s" : ""} available
           </Typography>
 
           <Box
