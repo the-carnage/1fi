@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
     <Link to={`/products/${product.slug}`} style={{ textDecoration: 'none' }}>
       <Card
         sx={{
-          height: '100%',
+          height: 480,
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
@@ -56,11 +56,12 @@ const ProductCard = ({ product }) => {
             position: 'relative',
             bgcolor: alpha('#6366f1', 0.03),
             overflow: 'hidden',
+            height: 280,
           }}
         >
           <CardMedia
             component="img"
-            height="320"
+            height="280"
             image={firstVariant.images[0]}
             alt={product.name}
             className="product-image"

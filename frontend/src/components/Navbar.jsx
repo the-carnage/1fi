@@ -1,9 +1,10 @@
-import { AppBar, Toolbar, Container, Typography, Box, Button, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Container, Typography, Box, Button, IconButton, TextField, InputAdornment } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SearchIcon from '@mui/icons-material/Search';
 
-const Navbar = () => {
+const Navbar = ({ searchQuery, onSearchChange }) => {
   return (
     <AppBar 
       position="sticky" 
@@ -45,7 +46,32 @@ const Navbar = () => {
             </Typography>
           </Link>
           
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mx: 4 }}>
+            <TextField
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              size="small"
+              sx={{
+                width: '100%',
+                maxWidth: 500,
+                '& .MuiOutlinedInput-root': {
+                  bgcolor: 'white',
+                  borderRadius: 2,
+                  '&:hover fieldset': {
+                    borderColor: 'primary.main',
+                  },
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: 'text.secondary' }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
           
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Button 

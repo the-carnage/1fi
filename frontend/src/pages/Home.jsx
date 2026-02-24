@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Box, CircularProgress, Chip, Stack } from '@mui/material';
+import { Container, Grid, Typography, Box, CircularProgress, Chip, Stack, FormControl, Select, MenuItem } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../api';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import SecurityIcon from '@mui/icons-material/Security';
 
-const Home = () => {
+const Home = ({ searchQuery }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [category, setCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('default');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +28,20 @@ const Home = () => {
 
     fetchProducts();
   }, []);
+
+  const filteredProducts = products
+    .filter(product => {
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.brand.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = category === 'all' || product.category === category;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price-low') return a.variants[0].price - b.variants[0].price;
+      if (sortBy === 'price-high') return b.variants[0].price - a.variants[0].price;
+      if (sortBy === 'name') return a.name.localeCompare(b.name);
+      return 0;
+    });
 
   if (loading) {
     return (
@@ -169,9 +185,39 @@ const Home = () => {
           </Typography>
         </Box>
 
+        <Box sx={{ mb: 4, display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              sx={{ bgcolor: 'white' }}
+            >
+              <MenuItem value="all">All Categories</MenuItem>
+              <MenuItem value="Smartphones">Smartphones</MenuItem>
+              <MenuItem value="Women's Dresses">Women's Dresses</MenuItem>
+              <MenuItem value="Shoes">Shoes</MenuItem>
+              <MenuItem value="Watches">Watches</MenuItem>
+              <MenuItem value="Jewellery">Jewellery</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <Select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              sx={{ bgcolor: 'white' }}
+            >
+              <MenuItem value="default">Default</MenuItem>
+              <MenuItem value="price-low">Price: Low to High</MenuItem>
+              <MenuItem value="price-high">Price: High to Low</MenuItem>
+              <MenuItem value="name">Name: A to Z</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
         <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} lg={4} key={product._id}>
+          {filteredProducts.map((product) => (
+            <Grid item xs={12} sm={6} md={3} key={product._id}>
               <ProductCard product={product} />
             </Grid>
           ))}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -145,16 +146,18 @@ const theme = createTheme({
 });
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
         <Router>
           <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#f8fafc' }}>
-            <Navbar />
+            <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
             <main style={{ flex: 1 }}>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home searchQuery={searchQuery} />} />
                 <Route path="/products/:slug" element={<ProductDetail />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
