@@ -11,13 +11,11 @@ import {
 } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
 const ProductCard = ({ product }) => {
   const firstVariant = product.variants[0];
   const discount = Math.round(
     ((firstVariant.mrp - firstVariant.price) / firstVariant.mrp) * 100,
   );
-
   return (
     <Link
       to={`/products/${product.slug}`}
@@ -69,8 +67,6 @@ const ProductCard = ({ product }) => {
             }}
           />
         )}
-
-        {/* Fixed-height image area */}
         <Box
           sx={{
             width: "100%",
@@ -97,8 +93,6 @@ const ProductCard = ({ product }) => {
             }}
           />
         </Box>
-
-        {/* Fixed-height content area */}
         <CardContent
           sx={{
             flex: 1,
@@ -122,7 +116,6 @@ const ProductCard = ({ product }) => {
               height: 22,
             }}
           />
-
           <Typography
             variant="body1"
             component="h2"
@@ -141,7 +134,6 @@ const ProductCard = ({ product }) => {
           >
             {product.name}
           </Typography>
-
           <Stack
             direction="row"
             spacing={1}
@@ -172,7 +164,6 @@ const ProductCard = ({ product }) => {
               </Typography>
             )}
           </Stack>
-
           <Typography
             variant="body2"
             color="text.secondary"
@@ -181,7 +172,6 @@ const ProductCard = ({ product }) => {
             {product.variants.length} variant
             {product.variants.length > 1 ? "s" : ""} available
           </Typography>
-
           <Box
             className="view-details"
             sx={{
@@ -204,5 +194,4 @@ const ProductCard = ({ product }) => {
     </Link>
   );
 };
-
 export default ProductCard;

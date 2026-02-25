@@ -15,17 +15,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import { useCart } from "../context/CartContext";
-
 const Navbar = ({ searchQuery, onSearchChange }) => {
   const { totalCount, setOpen } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
-
   const handleSearchKeyDown = (e) => {
     if (e.key === "Enter") {
       if (location.pathname !== "/") {
         navigate("/");
-        // Give time for navigation and mounting
         setTimeout(() => {
           const element = document.getElementById("products-section");
           if (element) {
@@ -40,7 +37,6 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
       }
     }
   };
-
   return (
     <AppBar
       position="sticky"
@@ -89,7 +85,6 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
               1Fi
             </Typography>
           </Link>
-
           <Box
             sx={{
               flexGrow: 1,
@@ -124,7 +119,6 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
               }}
             />
           </Box>
-
           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
             <IconButton
               onClick={() => setOpen(true)}
@@ -152,5 +146,4 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
     </AppBar>
   );
 };
-
 export default Navbar;

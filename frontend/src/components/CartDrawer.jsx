@@ -12,7 +12,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCart } from "../context/CartContext";
-
 const CartDrawer = () => {
   const {
     items,
@@ -23,7 +22,6 @@ const CartDrawer = () => {
     open,
     setOpen,
   } = useCart();
-
   return (
     <Drawer
       anchor="right"
@@ -37,7 +35,6 @@ const CartDrawer = () => {
         },
       }}
     >
-      {/* Header */}
       <Box
         sx={{
           px: 3,
@@ -63,8 +60,6 @@ const CartDrawer = () => {
           <CloseIcon />
         </IconButton>
       </Box>
-
-      {/* Items */}
       <Box sx={{ flex: 1, overflowY: "auto", px: 2, py: 2 }}>
         {items.length === 0 ? (
           <Box
@@ -153,8 +148,6 @@ const CartDrawer = () => {
           </Stack>
         )}
       </Box>
-
-      {/* Footer */}
       {items.length > 0 && (
         <Box
           sx={{ px: 2, py: 2, borderTop: "1px solid", borderColor: "divider" }}
@@ -195,5 +188,4 @@ const CartDrawer = () => {
     </Drawer>
   );
 };
-
 export default CartDrawer;

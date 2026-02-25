@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const Product = require("./models/Product");
 require("dotenv").config();
-
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/onefi";
-
 const products = [
   {
     name: "Apple iPhone 15",
@@ -65,7 +63,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Apple iPhone 15 Plus",
     slug: "apple-iphone-15-plus",
@@ -125,7 +122,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Samsung Galaxy S23 Ultra",
     slug: "samsung-galaxy-s23-ultra",
@@ -185,7 +181,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Samsung Galaxy S24 Ultra",
     slug: "samsung-galaxy-s24-ultra",
@@ -244,7 +239,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "OnePlus 12",
     slug: "oneplus-12",
@@ -265,7 +259,6 @@ const products = [
           "https://rukminim2.flixcart.com/image/3024/3024/xif0q/mobile/t/r/c/12-cph2573-oneplus-original-imahjngugxny5yuy.jpeg?q=90",
         ],
       },
-
       ,
       {
         variantName: "Silky Black 512GB",
@@ -305,7 +298,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "iQOO Neo 9 Pro",
     slug: "iqoo-neo-9-pro",
@@ -365,7 +357,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Xiaomi 14",
     slug: "xiaomi-14",
@@ -425,7 +416,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Realme GT 6",
     slug: "realme-gt-6",
@@ -485,7 +475,6 @@ const products = [
       },
     ],
   },
-
   {
     name: "Google Pixel 8",
     slug: "google-pixel-8",
@@ -546,18 +535,14 @@ const products = [
     ],
   },
 ];
-
 async function seedDatabase() {
   try {
     await mongoose.connect(MONGODB_URI);
     console.log("connected to mongodb");
-
     await Product.deleteMany({});
     console.log("cleared existing products");
-
     await Product.insertMany(products);
     console.log("seeded products successfully");
-
     mongoose.connection.close();
     console.log("database connection closed");
   } catch (error) {
@@ -565,5 +550,4 @@ async function seedDatabase() {
     process.exit(1);
   }
 }
-
 seedDatabase();

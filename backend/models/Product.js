@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const variantSchema = new mongoose.Schema({
     variantName: { type: String, required: true },
     storage: { type: String, required: true },
@@ -9,7 +8,6 @@ const variantSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     images: [{ type: String }]
 });
-
 const emiPlanSchema = new mongoose.Schema({
     tenure: { type: Number, required: true },
     monthlyAmount: { type: Number, required: true },
@@ -17,7 +15,6 @@ const emiPlanSchema = new mongoose.Schema({
     cashback: { type: Boolean, default: false },
     cashbackAmount: { type: Number, default: 0 }
 });
-
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
@@ -27,5 +24,4 @@ const productSchema = new mongoose.Schema({
     variants: [variantSchema],
     emiPlans: [emiPlanSchema]
 }, { timestamps: true });
-
 module.exports = mongoose.model('Product', productSchema);

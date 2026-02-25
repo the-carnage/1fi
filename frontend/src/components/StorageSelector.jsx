@@ -1,10 +1,7 @@
 import { Box, Typography, alpha } from '@mui/material';
-
 const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
   const uniqueStorages = [...new Map(variants.map(v => [v.storage, v])).values()];
-
   if (uniqueStorages.length <= 1) return null;
-
   return (
     <Box sx={{ mb: 2, width: '100%' }}>
       <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary', mb: 1.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -44,5 +41,4 @@ const StorageSelector = ({ variants, selectedVariant, onSelect }) => {
     </Box>
   );
 };
-
 export default StorageSelector;

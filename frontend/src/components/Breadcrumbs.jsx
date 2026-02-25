@@ -2,7 +2,6 @@ import { Breadcrumbs as MuiBreadcrumbs, Link, Typography, Box } from '@mui/mater
 import { Link as RouterLink } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import HomeIcon from '@mui/icons-material/Home';
-
 const Breadcrumbs = ({ items }) => {
   return (
     <Box sx={{ mb: 3 }}>
@@ -47,5 +46,4 @@ const Breadcrumbs = ({ items }) => {
     </Box>
   );
 };
-
 export default Breadcrumbs;

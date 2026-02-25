@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -31,7 +31,6 @@ import CachedIcon from "@mui/icons-material/Cached";
 import StarIcon from "@mui/icons-material/Star";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
-
 const ProductDetail = () => {
   const { slug } = useParams();
   const { addItem } = useCart();
@@ -42,7 +41,7 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [currentImage, setCurrentImage] = useState(0);
-
+  const emiSectionRef = useRef(null);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -59,12 +58,10 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [slug]);
-
   const handleVariantChange = (variant) => {
     setSelectedVariant(variant);
     setCurrentImage(0);
   };
-
   const handlePrevImage = useCallback(() => {
     if (!selectedVariant) return;
     setCurrentImage(
@@ -73,12 +70,10 @@ const ProductDetail = () => {
         selectedVariant.images.length,
     );
   }, [selectedVariant]);
-
   const handleNextImage = useCallback(() => {
     if (!selectedVariant) return;
     setCurrentImage((prev) => (prev + 1) % selectedVariant.images.length);
   }, [selectedVariant]);
-
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === "ArrowLeft") handlePrevImage();
@@ -87,18 +82,15 @@ const ProductDetail = () => {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [handlePrevImage, handleNextImage]);
-
   const handleProceed = () => {
     alert(
       `Proceeding with ${selectedVariant.variantName} - ${selectedPlan.tenure} months EMI plan`,
     );
   };
-
   const handleAddToCart = () => {
     addItem(product, selectedVariant);
     setSnackOpen(true);
   };
-
   if (loading) {
     return (
       <Box
@@ -113,7 +105,6 @@ const ProductDetail = () => {
       </Box>
     );
   }
-
   if (error || !product) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -123,7 +114,6 @@ const ProductDetail = () => {
       </Container>
     );
   }
-
   const discount = Math.round(
     ((selectedVariant.mrp - selectedVariant.price) / selectedVariant.mrp) * 100,
   );
@@ -131,11 +121,9 @@ const ProductDetail = () => {
   const emiAmount = selectedPlan
     ? Math.round(selectedVariant.price / selectedPlan.tenure)
     : null;
-
   return (
     <>
       <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-        {/* Breadcrumb */}
         <Box
           sx={{
             borderBottom: "1px solid",
@@ -146,8 +134,6 @@ const ProductDetail = () => {
         >
           <Breadcrumbs items={[{ label: product.name }]} />
         </Box>
-
-        {/* Two-column split */}
         <Box
           sx={{
             display: "flex",
@@ -157,7 +143,6 @@ const ProductDetail = () => {
             mx: "auto",
           }}
         >
-          {/* ── LEFT HALF: sticky media panel ── */}
           <Box
             sx={{
               width: { xs: "100%", md: "50%" },
@@ -185,7 +170,6 @@ const ProductDetail = () => {
                 maxWidth: 520,
               }}
             >
-              {/* Vertical thumbnail strip */}
               {selectedVariant.images.length > 1 && (
                 <Stack direction="column" spacing={1.5} sx={{ flexShrink: 0 }}>
                   {selectedVariant.images.map((img, idx) => (
@@ -223,8 +207,6 @@ const ProductDetail = () => {
                   ))}
                 </Stack>
               )}
-
-              {/* Hero image */}
               <Paper
                 elevation={0}
                 sx={{
@@ -290,8 +272,6 @@ const ProductDetail = () => {
                 />
               </Paper>
             </Box>
-
-            {/* Delivery / warranty badges */}
             <Stack direction="row" spacing={3} sx={{ mt: 1 }}>
               {[
                 {
@@ -340,8 +320,6 @@ const ProductDetail = () => {
               ))}
             </Stack>
           </Box>
-
-          {/* ── RIGHT HALF: product details ── */}
           <Box
             sx={{
               width: { xs: "100%", md: "50%" },
@@ -351,7 +329,6 @@ const ProductDetail = () => {
               flexDirection: "column",
             }}
           >
-            {/* Brand */}
             <Chip
               label={product.brand}
               size="small"
@@ -364,8 +341,6 @@ const ProductDetail = () => {
                 fontSize: "0.75rem",
               }}
             />
-
-            {/* Product name */}
             <Typography
               component="h1"
               sx={{
@@ -378,8 +353,6 @@ const ProductDetail = () => {
             >
               {product.name}
             </Typography>
-
-            {/* Rating */}
             <Stack
               direction="row"
               alignItems="center"
@@ -408,10 +381,7 @@ const ProductDetail = () => {
                 14 Ratings &amp; 4 Reviews
               </Typography>
             </Stack>
-
             <Divider sx={{ mb: 2.5 }} />
-
-            {/* Price block */}
             <Box sx={{ mb: 2.5 }}>
               <Stack
                 direction="row"
@@ -492,6 +462,22 @@ const ProductDetail = () => {
                   >
                     Or ₹{emiAmount.toLocaleString("en-IN")}/mo* &nbsp;
                     <Box
+                      onClick={() => {
+                        const offset = 100
+
+                        const element = emiSectionRef.current;
+                        if (!element) return;
+
+                        const y =
+                          element.getBoundingClientRect().top +
+                          window.pageYOffset -
+                          offset;
+
+                        window.scrollTo({
+                          top: y,
+                          behavior: "smooth",
+                        });
+                      }}
                       component="span"
                       sx={{
                         fontWeight: 700,
@@ -505,10 +491,7 @@ const ProductDetail = () => {
                 </Box>
               )}
             </Box>
-
             <Divider sx={{ mb: 2.5 }} />
-
-            {/* Color selector */}
             <Box sx={{ mb: 2 }}>
               <VariantSelector
                 variants={product.variants}
@@ -516,8 +499,6 @@ const ProductDetail = () => {
                 onSelect={handleVariantChange}
               />
             </Box>
-
-            {/* Storage selector */}
             <Box sx={{ mb: 2 }}>
               <StorageSelector
                 variants={product.variants}
@@ -525,10 +506,7 @@ const ProductDetail = () => {
                 onSelect={handleVariantChange}
               />
             </Box>
-
             <Divider sx={{ mb: 2.5 }} />
-
-            {/* Super Savings */}
             <Box sx={{ mb: 2.5 }}>
               <Stack
                 direction="row"
@@ -613,11 +591,8 @@ const ProductDetail = () => {
                 ))}
               </Stack>
             </Box>
-
             <Divider sx={{ mb: 2.5 }} />
-
-            {/* EMI Plans */}
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ mb: 3 }} ref={emiSectionRef}>
               <Stack
                 direction="row"
                 alignItems="center"
@@ -655,8 +630,6 @@ const ProductDetail = () => {
                 ))}
               </Stack>
             </Box>
-
-            {/* CTA */}
             <Button
               variant="outlined"
               size="large"
@@ -679,7 +652,6 @@ const ProductDetail = () => {
             >
               Add to Cart
             </Button>
-
             <Button
               variant="contained"
               size="large"
@@ -704,7 +676,6 @@ const ProductDetail = () => {
             >
               Proceed with {selectedPlan?.tenure} Month EMI
             </Button>
-
             <Typography
               variant="caption"
               sx={{
@@ -718,12 +689,10 @@ const ProductDetail = () => {
               🔒 100% Secure Payment &nbsp;•&nbsp; No Hidden Charges
               &nbsp;•&nbsp; Easy Returns
             </Typography>
-
             <Box sx={{ pb: 4 }} />
           </Box>
         </Box>
       </Box>
-
       <Snackbar
         open={snackOpen}
         autoHideDuration={2500}
@@ -742,5 +711,4 @@ const ProductDetail = () => {
     </>
   );
 };
-
 export default ProductDetail;

@@ -1,6 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
 const ErrorMessage = ({ message, onRetry }) => {
   return (
     <Box
@@ -29,5 +28,4 @@ const ErrorMessage = ({ message, onRetry }) => {
     </Box>
   );
 };
-
 export default ErrorMessage;

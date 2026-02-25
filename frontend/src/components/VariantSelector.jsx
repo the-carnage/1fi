@@ -1,8 +1,6 @@
 import { Box, Typography, alpha } from '@mui/material';
-
 const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
   const uniqueColors = [...new Map(variants.map(v => [v.color, v])).values()];
-
   return (
     <Box sx={{ mb: 2, width: '100%' }}>
       <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: 'text.secondary', mb: 1.5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -42,5 +40,4 @@ const VariantSelector = ({ variants, selectedVariant, onSelect }) => {
     </Box>
   );
 };
-
 export default VariantSelector;

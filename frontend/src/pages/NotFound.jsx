@@ -1,6 +1,5 @@
 import { Container, Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-
 const NotFound = () => {
   return (
     <Container maxWidth="md">
@@ -36,5 +35,4 @@ const NotFound = () => {
     </Container>
   );
 };
-
 export default NotFound;

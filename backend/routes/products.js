@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
-
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find()
@@ -13,7 +12,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'failed to fetch products', error: error.message });
   }
 });
-
 router.get('/:slug', async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
@@ -26,5 +24,4 @@ router.get('/:slug', async (req, res) => {
     res.status(500).json({ message: 'failed to fetch product', error: error.message });
   }
 });
-
 module.exports = router;

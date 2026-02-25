@@ -15,14 +15,12 @@ import { getProducts } from "../api";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import SecurityIcon from "@mui/icons-material/Security";
-
 const Home = ({ searchQuery }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("default");
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -35,10 +33,8 @@ const Home = ({ searchQuery }) => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
-
   const filteredProducts = products
     .filter((product) => {
       const matchesSearch =
@@ -56,7 +52,6 @@ const Home = ({ searchQuery }) => {
       if (sortBy === "name") return a.name.localeCompare(b.name);
       return 0;
     });
-
   if (loading) {
     return (
       <Box
@@ -71,7 +66,6 @@ const Home = ({ searchQuery }) => {
       </Box>
     );
   }
-
   if (error) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -81,13 +75,9 @@ const Home = ({ searchQuery }) => {
       </Container>
     );
   }
-
   return (
     <Box>
-      {/* Hero Carousel */}
       <HeroCarousel />
-
-      {/* Products Section */}
       <Container
         id="products-section"
         maxWidth="xl"
@@ -117,7 +107,6 @@ const Home = ({ searchQuery }) => {
             Choose from our curated collection of premium devices
           </Typography>
         </Box>
-
         <Box
           sx={{
             mb: 4,
@@ -141,7 +130,6 @@ const Home = ({ searchQuery }) => {
               <MenuItem value="Jewellery">Jewellery</MenuItem>
             </Select>
           </FormControl>
-
           <FormControl size="small" sx={{ minWidth: 150 }}>
             <Select
               value={sortBy}
@@ -193,8 +181,6 @@ const Home = ({ searchQuery }) => {
           </Box>
         )}
       </Container>
-
-      {/* Features Section */}
       <Box
         sx={{
           bgcolor: "background.paper",
@@ -359,5 +345,4 @@ const Home = ({ searchQuery }) => {
     </Box>
   );
 };
-
 export default Home;

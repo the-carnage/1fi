@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-
 const Loading = ({ message = 'Loading...' }) => {
   return (
     <Box
@@ -19,5 +18,4 @@ const Loading = ({ message = 'Loading...' }) => {
     </Box>
   );
 };
-
 export default Loading;

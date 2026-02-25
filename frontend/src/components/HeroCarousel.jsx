@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { Box, Typography, Container, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
 const slides = [
   {
     badge: "🎉 Zero Down Payment Available",
@@ -32,23 +31,18 @@ const slides = [
       "radial-gradient(circle at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 55%)",
   },
 ];
-
 const HeroCarousel = () => {
   const [active, setActive] = useState(0);
-
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % slides.length);
   }, []);
-
   const prev = useCallback(() => {
     setActive((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
-
   useEffect(() => {
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
   }, [next]);
-
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === "ArrowRight") next();
@@ -57,9 +51,7 @@ const HeroCarousel = () => {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [next, prev]);
-
   const slide = slides[active];
-
   return (
     <Box
       sx={{
@@ -116,7 +108,6 @@ const HeroCarousel = () => {
           >
             {slide.badge}
           </Box>
-
           <Typography
             variant="h1"
             sx={{
@@ -141,7 +132,6 @@ const HeroCarousel = () => {
               {slide.highlight}
             </Box>
           </Typography>
-
           <Typography
             variant="h6"
             sx={{
@@ -156,8 +146,6 @@ const HeroCarousel = () => {
             {slide.sub}
           </Typography>
         </Box>
-
-        {/* Prev / Next arrows */}
         <IconButton
           onClick={prev}
           sx={{
@@ -187,8 +175,6 @@ const HeroCarousel = () => {
           <ChevronRightIcon />
         </IconButton>
       </Container>
-
-      {/* Dot indicators */}
       <Box
         sx={{
           display: "flex",
@@ -215,5 +201,4 @@ const HeroCarousel = () => {
     </Box>
   );
 };
-
 export default HeroCarousel;

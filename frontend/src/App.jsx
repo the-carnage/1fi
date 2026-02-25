@@ -9,7 +9,6 @@ import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
-
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -148,10 +147,8 @@ const theme = createTheme({
     },
   },
 });
-
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -188,5 +185,4 @@ function App() {
     </ThemeProvider>
   );
 }
-
 export default App;

@@ -1,7 +1,6 @@
 import { Box, Radio, Typography, Chip, Stack, alpha } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-
 const EmiPlanCard = ({ plan, selected, onSelect }) => {
   return (
     <Box
@@ -43,7 +42,6 @@ const EmiPlanCard = ({ plan, selected, onSelect }) => {
           <Typography variant="caption" fontWeight={700} fontSize="0.7rem">Selected</Typography>
         </Box>
       )}
-
       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, width: '100%' }}>
         <Radio
           checked={selected}
@@ -71,7 +69,6 @@ const EmiPlanCard = ({ plan, selected, onSelect }) => {
               /month
             </Typography>
           </Stack>
-
           <Stack direction="row" spacing={1} sx={{ mb: 1.5 }} flexWrap="wrap" useFlexGap>
             <Chip
               label={`${plan.tenure} Months`}
@@ -92,7 +89,6 @@ const EmiPlanCard = ({ plan, selected, onSelect }) => {
               />
             )}
           </Stack>
-
           {plan.cashback && (
             <Box
               sx={{
@@ -113,7 +109,6 @@ const EmiPlanCard = ({ plan, selected, onSelect }) => {
               </Typography>
             </Box>
           )}
-
           <Box sx={{ pt: 1.5, borderTop: '1px solid', borderColor: 'divider' }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary', fontWeight: 600 }}>Total Amount</Typography>
@@ -127,5 +122,4 @@ const EmiPlanCard = ({ plan, selected, onSelect }) => {
     </Box>
   );
 };
-
 export default EmiPlanCard;
