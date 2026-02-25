@@ -5,13 +5,12 @@ import {
   Typography,
   Box,
   CircularProgress,
-  Chip,
-  Stack,
   FormControl,
   Select,
   MenuItem,
 } from "@mui/material";
 import ProductCard from "../components/ProductCard";
+import HeroCarousel from "../components/HeroCarousel";
 import { getProducts } from "../api";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -85,151 +84,8 @@ const Home = ({ searchQuery }) => {
 
   return (
     <Box>
-      {/* Hero Section */}
-      <Box
-        sx={{
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          position: "relative",
-          overflow: "hidden",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background:
-              "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-          },
-        }}
-      >
-        <Container
-          maxWidth="xl"
-          sx={{ py: { xs: 6, sm: 8, md: 12 }, position: "relative" }}
-        >
-          <Box
-            sx={{
-              maxWidth: 800,
-              mx: "auto",
-              textAlign: "center",
-              px: { xs: 2, sm: 0 },
-            }}
-          >
-            <Chip
-              label="🎉 Zero Down Payment Available"
-              sx={{
-                mb: { xs: 2, sm: 3 },
-                bgcolor: "rgba(255, 255, 255, 0.2)",
-                color: "white",
-                fontWeight: 600,
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-              }}
-            />
-            <Typography
-              variant="h1"
-              sx={{
-                color: "white",
-                mb: { xs: 2, sm: 3 },
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
-                textShadow: "0 2px 20px rgba(0,0,0,0.2)",
-                lineHeight: 1.2,
-              }}
-            >
-              Buy Premium Smartphones
-              <br />
-              <Box
-                component="span"
-                sx={{
-                  background:
-                    "linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                on Flexible EMI
-              </Box>
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                color: "rgba(255, 255, 255, 0.9)",
-                mb: { xs: 3, sm: 4 },
-                fontWeight: 400,
-                lineHeight: 1.6,
-                fontSize: { xs: "1rem", sm: "1.15rem", md: "1.25rem" },
-                px: { xs: 1, sm: 0 },
-              }}
-            >
-              EMI plans backed by mutual funds. No hidden charges. 0% interest
-              options available.
-            </Typography>
-
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={{ xs: 2, sm: 3 }}
-              justifyContent="center"
-              sx={{ mb: 2 }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                  color: "white",
-                  justifyContent: { xs: "center", sm: "flex-start" },
-                }}
-              >
-                <LocalOfferIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
-                <Typography
-                  variant="body1"
-                  fontWeight={600}
-                  fontSize={{ xs: "0.9rem", sm: "1rem" }}
-                >
-                  Best Prices
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                  color: "white",
-                  justifyContent: { xs: "center", sm: "flex-start" },
-                }}
-              >
-                <TrendingUpIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
-                <Typography
-                  variant="body1"
-                  fontWeight={600}
-                  fontSize={{ xs: "0.9rem", sm: "1rem" }}
-                >
-                  Flexible Plans
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                  color: "white",
-                  justifyContent: { xs: "center", sm: "flex-start" },
-                }}
-              >
-                <SecurityIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
-                <Typography
-                  variant="body1"
-                  fontWeight={600}
-                  fontSize={{ xs: "0.9rem", sm: "1rem" }}
-                >
-                  100% Secure
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
-        </Container>
-      </Box>
+      {/* Hero Carousel */}
+      <HeroCarousel />
 
       {/* Products Section */}
       <Container
