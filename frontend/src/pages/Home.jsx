@@ -89,6 +89,7 @@ const Home = ({ searchQuery }) => {
 
       {/* Products Section */}
       <Container
+        id="products-section"
         maxWidth="xl"
         sx={{ py: { xs: 4, sm: 6, md: 8 }, px: { xs: 2, sm: 3 } }}
       >
@@ -154,23 +155,43 @@ const Home = ({ searchQuery }) => {
             </Select>
           </FormControl>
         </Box>
-
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
-            },
-            gap: 3,
-          }}
-        >
-          {filteredProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </Box>
+        {filteredProducts.length > 0 ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+                lg: "repeat(4, 1fr)",
+              },
+              gap: 3,
+            }}
+          >
+            {filteredProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              textAlign: "center",
+              py: 8,
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              border: "1px dashed",
+              borderColor: "divider",
+            }}
+          >
+            <Typography variant="h5" color="text.secondary" gutterBottom>
+              No product is found
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Try adjusting your search or filter to find what you're looking
+              for.
+            </Typography>
+          </Box>
+        )}
       </Container>
 
       {/* Features Section */}

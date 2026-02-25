@@ -9,7 +9,7 @@ import {
   InputAdornment,
   Badge,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -18,6 +18,29 @@ import { useCart } from "../context/CartContext";
 
 const Navbar = ({ searchQuery, onSearchChange }) => {
   const { totalCount, setOpen } = useCart();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (location.pathname !== "/") {
+        navigate("/");
+        // Give time for navigation and mounting
+        setTimeout(() => {
+          const element = document.getElementById("products-section");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 100);
+      } else {
+        const element = document.getElementById("products-section");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+  };
+
   return (
     <AppBar
       position="sticky"
@@ -79,6 +102,7 @@ const Navbar = ({ searchQuery, onSearchChange }) => {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
               size="small"
               sx={{
                 width: "100%",
