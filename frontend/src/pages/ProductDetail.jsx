@@ -463,7 +463,7 @@ const ProductDetail = () => {
                     Or ₹{emiAmount.toLocaleString("en-IN")}/mo* &nbsp;
                     <Box
                       onClick={() => {
-                        const offset = 100
+                        const offset = 100;
 
                         const element = emiSectionRef.current;
                         if (!element) return;
