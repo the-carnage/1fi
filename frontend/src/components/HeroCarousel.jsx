@@ -40,14 +40,23 @@ const HeroCarousel = () => {
     setActive((prev) => (prev + 1) % slides.length);
   }, []);
 
-  const prev = () => {
+  const prev = useCallback(() => {
     setActive((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  }, []);
 
   useEffect(() => {
-    const timer = setInterval(next, 4500);
+    const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
   }, [next]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [next, prev]);
 
   const slide = slides[active];
 
@@ -58,6 +67,10 @@ const HeroCarousel = () => {
         transition: "background 0.7s ease",
         position: "relative",
         overflow: "hidden",
+        minHeight: { xs: 360, sm: 420, md: 460 },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -70,7 +83,7 @@ const HeroCarousel = () => {
     >
       <Container
         maxWidth="xl"
-        sx={{ py: { xs: 7, sm: 9, md: 13 }, position: "relative" }}
+        sx={{ py: { xs: 6, sm: 7, md: 8 }, position: "relative" }}
       >
         <Box
           sx={{
