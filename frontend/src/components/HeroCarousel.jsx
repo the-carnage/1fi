@@ -18,16 +18,16 @@ const slides = [
     headline: "Samsung, Apple, OnePlus",
     highlight: "All in One Place",
     sub: "Explore the latest flagship phones with exclusive discounts and cashback on every EMI plan.",
-    bg: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    bg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     radial:
-      "radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12) 0%, transparent 55%)",
+      "radial-gradient(circle at 80% 30%, rgba(25.5,255,255,0.12) 0%, transparent 55%)",
   },
   {
     badge: "🔒 100% Secure Payments",
     headline: "Upgrade Your Phone Today",
     highlight: "Pay in Easy Instalments",
     sub: "Flexible 3, 6, and 12-month plans. Choose what works for you with full transparency.",
-    bg: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    bg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     radial:
       "radial-gradient(circle at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 55%)",
   },
